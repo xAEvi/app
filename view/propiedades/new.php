@@ -1,3 +1,5 @@
+<?php require_once HEADER; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -50,3 +52,5 @@
     <a href="index.php?c=Propiedades&f=index">Atrás</a>
 </body>
 </html>
+
+<?php require_once FOOTER; ?>

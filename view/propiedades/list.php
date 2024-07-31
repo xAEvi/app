@@ -2,6 +2,9 @@
 $rol = 1;
 // $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 ?>
+
+<?php require_once HEADER; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,3 +52,5 @@ $rol = 1;
     </table>
 </body>
 </html>
+
+<?php require_once FOOTER; ?>
