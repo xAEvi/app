@@ -1,6 +1,5 @@
 <?php if (!isset($_SESSION)) { session_start(); } 
-$rol = 1;
-// $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+$rol = 1; // Ejemplo, ajustar según el rol real
 ?>
 
 <?php require_once HEADER; ?>
@@ -21,26 +20,40 @@ $rol = 1;
     <a href="index.php?c=Propiedades&f=view_new">Nueva Propiedad</a>
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Imagen</th>
             <th>Dirección</th>
             <th>Precio</th>
             <th>Habitaciones</th>
             <th>Baños</th>
             <th>Superficie</th>
             <th>Estado Alquiler</th>
+            <th>Estado</th>
             <?php if ($rol == 1){ ?>
             <th>Acciones</th>
             <?php } ?>
         </tr>
         <?php foreach ($resultados as $prop) { ?>
             <tr>
-                <td><?php echo $prop['id']; ?></td>
+                <td><?php echo $prop['tipo_propiedad']; ?></td>
+                <td><?php echo $prop['descripcion']; ?></td>
+                <td>
+                    <a href="index.php?c=Propiedades&f=view&id=<?php echo $prop['id']; ?>">
+                        <?php if ($prop['imagen']) { ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($prop['imagen']); ?>" alt="Imagen" style="width: 100px; height: auto;">
+                        <?php } else { ?>
+                            No Disponible
+                        <?php } ?>
+                    </a>
+                </td>
                 <td><?php echo $prop['direccion']; ?></td>
                 <td><?php echo $prop['precio']; ?></td>
                 <td><?php echo $prop['num_habitaciones']; ?></td>
                 <td><?php echo $prop['num_banos']; ?></td>
                 <td><?php echo $prop['superficie']; ?></td>
                 <td><?php echo $prop['estado_alquiler']; ?></td>
+                <td><?php echo $prop['estado']; ?></td>
                 <?php if ($rol == 1){ ?>
                 <td>
                     <a href="index.php?c=Propiedades&f=delete&id=<?php echo $prop['id']; ?>">Eliminar</a>
