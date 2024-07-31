@@ -29,7 +29,6 @@ $rol = 1; // Ejemplo, ajustar según el rol real
             <th>Baños</th>
             <th>Superficie</th>
             <th>Estado Alquiler</th>
-            <th>Estado</th>
             <?php if ($rol == 1){ ?>
             <th>Acciones</th>
             <?php } ?>
@@ -53,7 +52,6 @@ $rol = 1; // Ejemplo, ajustar según el rol real
                 <td><?php echo $prop['num_banos']; ?></td>
                 <td><?php echo $prop['superficie']; ?></td>
                 <td><?php echo $prop['estado_alquiler']; ?></td>
-                <td><?php echo $prop['estado']; ?></td>
                 <?php if ($rol == 1){ ?>
                 <td>
                     <a href="index.php?c=Propiedades&f=delete&id=<?php echo $prop['id']; ?>">Eliminar</a>

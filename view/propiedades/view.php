@@ -60,6 +60,34 @@
                 <td><?php echo $propiedad['estado_alquiler']; ?></td>
             </tr>
         </table>
+
+            <h2>Comentarios</h2>
+            <?php if (!empty($comentarios)) { ?>
+                <table border="1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Comentario</th>
+                        <th>Fecha</th>
+                        <th>Valoración Costo</th>
+                        <th>Valoración Ubicación</th>
+                        <th>Valoración Estado</th>
+                    </tr>
+                    <?php foreach ($comentarios as $comentario) { ?>
+                        <tr>
+                            <td><?php echo $comentario->getId(); ?></td>
+                            <td><?php echo $comentario->getNombreUsuario(); ?></td>
+                            <td><?php echo $comentario->getComentario(); ?></td>
+                            <td><?php echo $comentario->getFecha(); ?></td>
+                            <td><?php echo $comentario->getValoracionCosto(); ?></td>
+                            <td><?php echo $comentario->getValoracionUbicacion(); ?></td>
+                            <td><?php echo $comentario->getValoracionEstado(); ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            <?php } else { ?>
+                <p>No hay comentarios para esta propiedad.</p>
+            <?php } ?>
     <?php } else { ?>
         <p>Propiedad no encontrada.</p>
     <?php } ?>
