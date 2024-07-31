@@ -1,5 +1,6 @@
 <?php if (!isset($_SESSION)) { session_start(); } 
-$rol = 1; // Ejemplo, ajustar según el rol real
+$rol = 1;
+// $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 ?>
 
 <?php require_once HEADER; ?>
@@ -70,53 +71,37 @@ $rol = 1; // Ejemplo, ajustar según el rol real
             <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
         </div>
     <?php } ?>
-    <a href="index.php?c=Propiedades&f=view_new">Nueva Propiedad</a>
+    <a href="index.php?c=Usuarios&f=view_new">Nuevo Usuario</a>
     <table border="1">
         <thead>
             <tr>
-                <th>Tipo</th>
-                <th>Descripción</th>
-                <th>Imagen</th>
-                <th>Dirección</th>
-                <th>Precio</th>
-                <th>Habitaciones</th>
-                <th>Baños</th>
-                <th>Superficie</th>
-                <th>Estado Alquiler</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Usuario</th>
+                <th>Direccion</th>
                 <?php if ($rol == 1){ ?>
                 <th>Acciones</th>
                 <?php } ?>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($resultados as $prop) { ?>
+            <?php foreach ($resultados as $user) { ?>
                 <tr>
-                    <td><?php echo $prop['tipo_propiedad']; ?></td>
-                    <td><?php echo $prop['descripcion']; ?></td>
-                    <td>
-                        <a href="index.php?c=Propiedades&f=view&id=<?php echo $prop['id']; ?>">
-                            <?php if ($prop['imagen']) { ?>
-                                <img src="data:image/jpeg;base64,<?php echo base64_encode($prop['imagen']); ?>" alt="Imagen" style="width: 100px; height: auto;">
-                            <?php } else { ?>
-                                No Disponible
-                            <?php } ?>
-                        </a>
-                    </td>
-                    <td><?php echo $prop['direccion']; ?></td>
-                    <td><?php echo $prop['precio']; ?></td>
-                    <td><?php echo $prop['num_habitaciones']; ?></td>
-                    <td><?php echo $prop['num_banos']; ?></td>
-                    <td><?php echo $prop['superficie']; ?></td>
-                    <td><?php echo $prop['estado_alquiler']; ?></td>
+                    <td><?php echo $user['id']; ?></td>
+                    <td><?php echo $user['nombre']; ?></td>
+                    <td><?php echo $user['correo']; ?></td>
+                    <td><?php echo $user['username']; ?></td>
+                    <td><?php echo $user['direccion']; ?></td>
                     <?php if ($rol == 1){ ?>
                     <td>
-                        <a href="index.php?c=Propiedades&f=delete&id=<?php echo $prop['id']; ?>">Eliminar</a>
-                        <a href="index.php?c=Propiedades&f=view_edit&id=<?php echo $prop['id']; ?>">Editar</a>
+                        <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>">Eliminar</a>
+                        <a href="index.php?c=Usuarios&f=view_edit&id=<?php echo $user['id']; ?>">Editar</a>
                     </td>
                     <?php } ?>
                 </tr>
             <?php } ?>
-        </tbody>    
+        </tbody>
     </table>
 </body>
 </html>
