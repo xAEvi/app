@@ -1,5 +1,7 @@
 <?php
 require_once 'model/dao/PropiedadesDAO.php';
+require_once 'model/dao/ComentarioDAO.php';
+require_once 'model/dto/Comentario.php';
 require_once 'model/dto/Propiedad.php';
 
 class PropiedadesController {
@@ -33,6 +35,19 @@ class PropiedadesController {
         $titulo = "Nueva propiedad";
         require_once VPROP . 'new.php';
     }
+
+    public function view() {
+      $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+      $propiedad = $this->model->selectOne($id);
+
+      $comentarioDAO = new ComentarioDAO();
+      $comentarios = $comentarioDAO->selectByPropiedad($id);
+
+
+      $titulo = "Detalles de Propiedad";
+      require_once VPROP . 'view.php';
+  }
+
 
     public function new() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
