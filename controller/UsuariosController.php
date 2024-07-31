@@ -2,7 +2,7 @@
 require_once 'model/dao/UsuariosDAO.php';
 require_once 'model/dto/Usuario.php';
 
-class PropiedadesController {
+class UsuariosController {
     private $model;
     
     public function __construct() {
@@ -25,33 +25,30 @@ class PropiedadesController {
           header('Location:index.php?c=Usuarios&f=login');
         }
 
-        $titulo = "Lista de propiedades";
-        require_once VPROP . 'list.php';
+        $titulo = "Lista de usuarios";
+        require_once VUSER . 'list.php';
     }
 
     public function view_new() {
-        $titulo = "Nueva propiedad";
-        require_once VPROP . 'new.php';
+        $titulo = "Nuevo Usuario";
+        require_once VUSER . 'new.php';
     }
 
     public function new() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $prop = new Propiedad();
-            $prop->setTitulo(htmlentities($_POST['titulo']));
-            $prop->setTipoPropiedad(htmlentities($_POST['tipo_propiedad']));
-            $prop->setDescripcion(htmlentities($_POST['descripcion']));
-            $prop->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
-            $prop->setDireccion(htmlentities($_POST['direccion']));
-            $prop->setPrecio(htmlentities($_POST['precio']));
-            $prop->setNumHabitaciones(htmlentities($_POST['num_habitaciones']));
-            $prop->setNumBanos(htmlentities($_POST['num_banos']));
-            $prop->setSuperficie(htmlentities($_POST['superficie']));
-            $prop->setEstadoAlquiler(htmlentities($_POST['estado_alquiler']));
-            $prop->setEstado('Activo');
+            $user = new User();
+            $user->setNombre(htmlentities($_POST['nombre']));
+            $user->setContrasena(htmlentities($_POST['contrasena']));
+            $user->setUsername(htmlentities($_POST['username']));
+            $user->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
+            $user->setCorreo(htmlentities($_POST['correo']));
+            $user->setDireccion(htmlentities($_POST['direccion']));
+            $user->setRol(htmlentities($_POST['rol']));
+            $user->setEstado('Activo');
 
-            $exito = $this->model->insert($prop);
+            $exito = $this->model->insert($user);
 
-            $msj = 'Propiedad guardada exitosamente';
+            $msj = 'Usuario guardado exitosamente';
             if (!$exito) {
                 $msj = "No se pudo realizar el guardado";
             }
@@ -60,60 +57,58 @@ class PropiedadesController {
             }
             $_SESSION['mensaje'] = $msj;
 
-            header('Location:index.php?c=Propiedades&f=index');
+            header('Location:index.php?c=Usuarios&f=index');
         }
     }
 
     public function delete() {
-        $prop = new Propiedad();
-        $prop->setId(htmlentities($_REQUEST['id']));
+        $user = new User();
+        $user->setId(htmlentities($_REQUEST['id']));
 
-        $exito = $this->model->delete($prop);
-        $msj = 'Propiedad eliminada exitosamente';
+        $exito = $this->model->delete($user);
+        $msj = 'Usuario eliminado exitosamente';
         if (!$exito) {
-            $msj = "No se pudo eliminar la propiedad";
+            $msj = "No se pudo eliminar al usuario";
         }
         if (!isset($_SESSION)) {
             session_start();
         }
         $_SESSION['mensaje'] = $msj;
 
-        header('Location:index.php?c=Propiedades&f=index');
+        header('Location:index.php?c=Usuarios&f=index');
     }
 
     public function view_edit() {
         $id = $_GET['id'];
-        $prop = $this->model->selectOne($id);
-        $titulo = "Editar propiedad";
-        require_once VPROP . 'edit.php';
+        $user = $this->model->selectOne($id);
+        $titulo = "Editar Usuario";
+        require_once VUSER . 'edit.php';
     }
 
     public function edit() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $prop = new Propiedad();
-            $prop->setId(htmlentities($_POST['id']));
-            $prop->setTitulo(htmlentities($_POST['titulo']));
-            $prop->setTipoPropiedad(htmlentities($_POST['tipo_propiedad']));
-            $prop->setDescripcion(htmlentities($_POST['descripcion']));
-            $prop->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
-            $prop->setDireccion(htmlentities($_POST['direccion']));
-            $prop->setPrecio(htmlentities($_POST['precio']));
-            $prop->setNumHabitaciones(htmlentities($_POST['num_habitaciones']));
-            $prop->setNumBanos(htmlentities($_POST['num_banos']));
-            $prop->setSuperficie(htmlentities($_POST['superficie']));
-            $prop->setEstadoAlquiler(htmlentities($_POST['estado_alquiler']));
+            $user = new useriedad();
+            $user->setId(htmlentities($_POST['id']));
+            $user->setTitulo(htmlentities($_POST['nombre']));
+            $user->setContrasena(htmlentities($_POST['contrasena']));
+            $user->setUsername(htmlentities($_POST['username']));
+            $user->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
+            $user->setCorreo(htmlentities($_POST['correo']));
+            $user->setDireccion(htmlentities($_POST['direccion']));
+            $user->setRol(htmlentities($_POST['rol']));
+            $user->setEstado(htmlentities($_POST['estado']));
 
-            $exito = $this->model->update($prop);
-            $msj = 'Propiedad actualizada exitosamente';
+            $exito = $this->model->update($user);
+            $msj = 'Usuario actualizado exitosamente';
             if (!$exito) {
-                $msj = "No se pudo actualizar la propiedad";
+                $msj = "No se pudo actualizar el usuario";
             }
             if (!isset($_SESSION)) {
                 session_start();
             }
             $_SESSION['mensaje'] = $msj;
 
-            header('Location:index.php?c=Propiedades&f=index');
+            header('Location:index.php?c=Usuarios&f=index');
         }
     }
 }

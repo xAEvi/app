@@ -1,86 +1,61 @@
 <?php
 require_once 'config/conexion.php';
-require_once 'model/dto/Propiedad.php';
+require_once 'model/dto/Usuario.php';
 
-class PropiedadesDAO {
+class UsuariosDAO {
     private $conexion;
 
     public function __construct() {
         $this->conexion = Conexion::conectar();
     }
 
-    public function selectAll() {
-        $query = "SELECT * FROM propiedad WHERE estado_alquiler = 'Disponible' AND estado = 'Activo'";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function selectAvailable(){
-        $query = "SELECT * FROM propiedad WHERE estado_alquiler = 'Disponible' AND estado = 'Activo'
-                  AND id NOT in (
-                    SELECT id_propiedad 
-                    FROM mantenimiento 
-                    WHERE CURRENT_DATE BETWEEN fecha_inicio AND fecha_fin
-                )";
+    public function selectAll() { //mostrar todos 
+        $query = "SELECT * FROM usuario WHERE estado = 'Activo'";
         $stmt = $this->conexion->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function selectOne($id) {
-        $query = "SELECT * FROM propiedad WHERE id = :id";
+        $query = "SELECT * FROM usuario WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function insert(Propiedad $prop) {
-        $query = "INSERT INTO propiedad (titulo, tipo_propiedad, descripcion, imagen, direccion, precio, num_habitaciones, num_banos, superficie, estado_alquiler, estado) VALUES (:titulo, :tipo_propiedad, :descripcion, :imagen, :direccion, :precio, :num_habitaciones, :num_banos, :superficie, :estado_alquiler, :estado)";
+    public function insert(usuario $user) {
+        $query = "INSERT INTO usuario (nombre, contrasena, username, imagen, direccion, correo, rol, estado) VALUES (:nombre, :contrasena, :username, :imagen, :direccion, :correo, :rol, :estado)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindValue(':titulo', $prop->getTitulo());
-        $stmt->bindValue(':tipo_propiedad', $prop->getTipoPropiedad());
-        $stmt->bindValue(':descripcion', $prop->getDescripcion());
-        $stmt->bindValue(':imagen', $prop->getImagen(), PDO::PARAM_LOB);
-        $stmt->bindValue(':direccion', $prop->getDireccion());
-        $stmt->bindValue(':precio', $prop->getPrecio());
-        $stmt->bindValue(':num_habitaciones', $prop->getNumHabitaciones());
-        $stmt->bindValue(':num_banos', $prop->getNumBanos());
-        $stmt->bindValue(':superficie', $prop->getSuperficie());
-        $stmt->bindValue(':estado_alquiler', $prop->getEstadoAlquiler());
-        $stmt->bindValue(':estado', $prop->getEstado());
+        $stmt->bindValue(':nombre', $user->getNombre());
+        $stmt->bindValue(':contrasena', $user->getContrasena());
+        $stmt->bindValue(':username', $user->getUsername());
+        $stmt->bindValue(':imagen', $user->getImagen(), PDO::PARAM_LOB);
+        $stmt->bindValue(':direccion', $user->getDireccion());
+        $stmt->bindValue(':correo', $user->getCorreo());
+        $stmt->bindValue(':rol', $user->getRol());
+        $stmt->bindValue(':estado', $user->getEstado());
         return $stmt->execute();
     }
 
-    public function update(Propiedad $prop) {
-        $query = "UPDATE propiedad SET titulo = :titulo, tipo_propiedad = :tipo_propiedad, descripcion = :descripcion, imagen = :imagen, direccion = :direccion, precio = :precio, num_habitaciones = :num_habitaciones, num_banos = :num_banos, superficie = :superficie, estado_alquiler = :estado_alquiler WHERE id = :id";
+    public function update(usuario $user) {
+        $query = "UPDATE usuario SET nombre = :nombre, contrasena = :contrasena, username = :username, imagen = :imagen, direccion = :direccion, correo = :correo, rol = :rol WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindValue(':titulo', $prop->getTitulo());
-        $stmt->bindValue(':tipo_propiedad', $prop->getTipoPropiedad());
-        $stmt->bindValue(':descripcion', $prop->getDescripcion());
-        $stmt->bindValue(':imagen', $prop->getImagen(), PDO::PARAM_LOB);
-        $stmt->bindValue(':direccion', $prop->getDireccion());
-        $stmt->bindValue(':precio', $prop->getPrecio());
-        $stmt->bindValue(':num_habitaciones', $prop->getNumHabitaciones());
-        $stmt->bindValue(':num_banos', $prop->getNumBanos());
-        $stmt->bindValue(':superficie', $prop->getSuperficie());
-        $stmt->bindValue(':estado_alquiler', $prop->getEstadoAlquiler());
-        $stmt->bindValue(':id', $prop->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':nombre', $user->getNombre());
+        $stmt->bindValue(':contrasena', $user->getTipousuario());
+        $stmt->bindValue(':username', $user->getUsername());
+        $stmt->bindValue(':imagen', $user->getImagen(), PDO::PARAM_LOB);
+        $stmt->bindValue(':direccion', $user->getDireccion());
+        $stmt->bindValue(':correo', $user->getCorreo());
+        $stmt->bindValue(':rol', $user->getRol());
+        $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    public function delete(Propiedad $prop) {
-        $query = "UPDATE propiedad SET estado = 'Inactivo' WHERE id = :id";
+    public function delete(usuario $user) {
+        $query = "UPDATE usuario SET estado = 'Inactivo' WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindValue(':id', $prop->getId(), PDO::PARAM_INT);
-        return $stmt->execute();
-    }
-
-    public function rent(Propiedad $prop) {
-        $query = "UPDATE propiedad SET estado_alquiler = 'Alquilado' WHERE id = :id";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindValue(':id', $prop->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
         return $stmt->execute();
     }
 

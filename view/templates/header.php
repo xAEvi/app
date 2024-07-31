@@ -19,13 +19,16 @@ if ($opcion=="cerrar") {
 
 <!DOCTYPE html>
 <html lang="es">
+<head>
+ <link href="assets/css/styles.css" rel="stylesheet"> 
+</head>
 <body>
     <nav>
         <ul>
             <li><a href="index.php?c=Index&f=index">Inicio</a></li>
             <li><a href="index.php?c=Propiedades&f=index">Propiedades</a></li>
             <li><a href="index.php?p=contacto">Contacto</a></li>
-            <li><a href="index.php?c=Perfil&f=index">Perfil</a></li>
+            <li><a href="index.php?c=Usuarios&f=index">Perfil</a></li>
             
             <?php if ($rol == 1 || $rol == 2) { ?>
                 <li><a href="index.php?c=Pedidos&f=index">Pedidos</a></li>
