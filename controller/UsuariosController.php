@@ -36,7 +36,7 @@ class UsuariosController {
 
     public function new() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $user = new User();
+            $user = new Usuario();
             $user->setNombre(htmlentities($_POST['nombre']));
             $user->setContrasena(htmlentities($_POST['contrasena']));
             $user->setUsername(htmlentities($_POST['username']));
@@ -62,7 +62,7 @@ class UsuariosController {
     }
 
     public function delete() {
-        $user = new User();
+        $user = new Usuario();
         $user->setId(htmlentities($_REQUEST['id']));
 
         $exito = $this->model->delete($user);
@@ -81,15 +81,21 @@ class UsuariosController {
     public function view_edit() {
         $id = $_GET['id'];
         $user = $this->model->selectOne($id);
+        if ($user === false) {
+            $_SESSION['mensaje'] = "Usuario no encontrado";
+            header('Location:index.php?c=Usuarios&f=index');
+            exit();
+        }
         $titulo = "Editar Usuario";
         require_once VUSER . 'edit.php';
     }
+    
 
     public function edit() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $user = new useriedad();
+            $user = new Usuario();
             $user->setId(htmlentities($_POST['id']));
-            $user->setTitulo(htmlentities($_POST['nombre']));
+            $user->setNombre(htmlentities($_POST['nombre']));
             $user->setContrasena(htmlentities($_POST['contrasena']));
             $user->setUsername(htmlentities($_POST['username']));
             $user->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));

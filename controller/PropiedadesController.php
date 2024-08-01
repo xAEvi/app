@@ -102,6 +102,7 @@ class PropiedadesController {
         $titulo = "Editar propiedad";
         require_once VPROP . 'edit.php';
     }
+    
 
     public function edit() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

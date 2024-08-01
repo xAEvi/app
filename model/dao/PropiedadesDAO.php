@@ -35,6 +35,7 @@ class PropiedadesDAO {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
 
     public function insert(Propiedad $prop) {
         $query = "INSERT INTO propiedad (titulo, tipo_propiedad, descripcion, imagen, direccion, precio, num_habitaciones, num_banos, superficie, estado_alquiler, estado) VALUES (:titulo, :tipo_propiedad, :descripcion, :imagen, :direccion, :precio, :num_habitaciones, :num_banos, :superficie, :estado_alquiler, :estado)";
