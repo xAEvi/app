@@ -13,19 +13,19 @@
         <input type="text" name="nombre" id="nombre" required><br>
         
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" value="<?php echo $user['username']; ?>" required><br>
+        <input type="text" name="username" id="username" required><br>
 
         <label for="contrasena">Password:</label>
-        <input type="text" name="contrasena" id="contrasena" value="<?php echo $user['contrasena']; ?>" required><br>
+        <input type="password" name="contrasena" id="contrasena" required><br>
         
         <label for="correo">Correo:</label>
-        <input type="text" name="correo" id="correo" value="<?php echo $user['correo']; ?>" required><br>
+        <input type="text" name="correo" id="correo" ><br>
         
         <label for="imagen">Imagen:</label>
         <input type="file" name="imagen" id="imagen"><br>
 
         <label for="direccion">Dirección:</label>
-        <input type="text" name="direccion" id="direccion" value="<?php echo $user['direccion']; ?>" required><br>
+        <input type="text" name="direccion" id="direccion"  required><br>
         
         <input type="submit" value="Guardar">
     </form>

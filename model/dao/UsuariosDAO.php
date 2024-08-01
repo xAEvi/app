@@ -23,6 +23,7 @@ class UsuariosDAO {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
 
     public function insert(usuario $user) {
         $query = "INSERT INTO usuario (nombre, contrasena, username, imagen, direccion, correo, rol, estado) VALUES (:nombre, :contrasena, :username, :imagen, :direccion, :correo, :rol, :estado)";
