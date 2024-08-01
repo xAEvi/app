@@ -27,8 +27,10 @@ if ($opcion=="cerrar") {
             <li><a href="index.php?c=Index&f=index">Inicio</a></li>
             <li><a href="index.php?c=Propiedades&f=index">Propiedades</a></li>
             <li><a href="index.php?p=contacto">Contacto</a></li>
-            <li><a href="index.php?c=Usuarios&f=index">Perfil</a></li>
-            
+            <?php if ($rol ==1) { ?>
+                <li><a href="index.php?c=Usuarios&f=index">Usuarios</a></li>
+            <?php } ?>
+            <li><a href="">Ver Perfil</a></li>
             <?php if ($rol == 1 || $rol == 2) { ?>
                 <li><a href="index.php?c=Pedidos&f=index">Pedidos</a></li>
             <?php } ?>
