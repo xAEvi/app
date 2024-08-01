@@ -19,9 +19,7 @@ if ($opcion=="cerrar") {
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
- <link href="assets/css/styles.css" rel="stylesheet"> 
-</head>
+
 <body>
     <nav>
         <ul>
