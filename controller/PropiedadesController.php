@@ -16,15 +16,12 @@ class PropiedadesController {
             session_start();
         }
 
-        // $rol isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
-        $rol = 1;
+        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
         if ($rol == 1){
           $resultados = $this->model->selectAll();
         } else if ($rol == 2 || $rol == 3){
           $resultados = $this->model->selectAvailable();
-        } else {
-          header('Location:index.php?c=Usuarios&f=login');
         }
 
         $titulo = "Lista de propiedades";
