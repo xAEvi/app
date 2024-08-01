@@ -1,5 +1,5 @@
 <?php if (!isset($_SESSION)) { session_start(); } 
-$rol = 1; // Ejemplo, ajustar según el rol real
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
 ?>
 
 <?php require_once HEADER; ?>
