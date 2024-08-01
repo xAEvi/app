@@ -1,6 +1,5 @@
 <?php if (!isset($_SESSION)) { session_start(); } 
-$rol = 1;
-// $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 ?>
 
 <?php require_once HEADER; ?>

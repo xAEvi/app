@@ -1,11 +1,12 @@
 <?php if (!isset($_SESSION)) { session_start(); }
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
-if (empty($_SESSION['user']) || empty($_SESSION['rol'])){// validacion de acceso por autenticacion
-    header("Location:login.php"); //redirijir
+
+if (empty($_SESSION['user']) || empty($_SESSION['rol'])){
+    header("Location:login.php");
     die();
 } 
-$user=htmlentities($_SESSION['user']);//crea y usa las variables 
 $rol=htmlentities($_SESSION['rol']);
+
 //enviar el parametro por get con empty
 $opcion = !empty($_GET["op"])?htmlentities($_GET["op"]):'';
 if ($opcion=="cerrar") {
@@ -14,6 +15,7 @@ if ($opcion=="cerrar") {
     header("Location:login.php");
     die(); 
 }
+
 ?>
 
 <!DOCTYPE html>

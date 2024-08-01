@@ -43,7 +43,7 @@ class UsuariosDAO {
         $query = "UPDATE usuario SET nombre = :nombre, contrasena = :contrasena, username = :username, imagen = :imagen, direccion = :direccion, correo = :correo, rol = :rol WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindValue(':nombre', $user->getNombre());
-        $stmt->bindValue(':contrasena', $user->getTipousuario());
+        $stmt->bindValue(':contrasena', $user->getContrasena());
         $stmt->bindValue(':username', $user->getUsername());
         $stmt->bindValue(':imagen', $user->getImagen(), PDO::PARAM_LOB);
         $stmt->bindValue(':direccion', $user->getDireccion());
