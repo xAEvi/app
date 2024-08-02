@@ -23,6 +23,7 @@ class UsuariosController {
                 $_SESSION['user'] = $result['username'];
                 $_SESSION['rol'] = $result['rol'];
                 $_SESSION['user_id'] = $result['id'];
+                $_SESSION['image'] = base64_encode($result['imagen']);
                 $_SESSION['mensaje'] = 'Bienvenid@ ' . $result['nombre'];
                 header('Location: index.php');
                 exit();

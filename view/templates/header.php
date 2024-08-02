@@ -76,7 +76,7 @@ if ($opcion=="cerrar") {
 <body>
     <div class="sidebar">
         <div class="logo">
-            <img src="path/to/logo.png" alt="Logo">
+            <img src="https://graphicsfamily.com/wp-content/uploads/edd/2020/04/house-apartment-logo-blue-png-transparent.png" alt="Logo">
             <h2>Alquiler de propiedades</h2>
         </div>
         <a href="index.php?c=Index&f=index" class="active">Inicio</a>
@@ -94,7 +94,7 @@ if ($opcion=="cerrar") {
         <?php } ?>
         <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?op=cerrar&num=12">Salir</a>
         <div class="user-info">
-            <img src="path/to/profile_picture.jpg" alt="Profile Picture">
+            <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64,<?php echo $_SESSION['image']; ?>" alt="Imagen de perfil">
             <p><?php echo $_SESSION['user']; ?></p>
         </div>
     </div>
