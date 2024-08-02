@@ -14,8 +14,7 @@ class UsuariosController {
             session_start();
         }
 
-        // $rol isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
-        $rol = 1;
+        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
         if ($rol == 1){
           $resultados = $this->model->selectAll();

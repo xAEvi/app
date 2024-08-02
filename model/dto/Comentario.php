@@ -3,6 +3,7 @@ class Comentario {
     private $id;
     private $id_usuario;
     private $id_propiedad;
+    private $titulo; // Nuevo campo
     private $comentario;
     private $fecha;
     private $valoracion_costo;
@@ -20,6 +21,9 @@ class Comentario {
 
     public function getIdPropiedad() { return $this->id_propiedad; }
     public function setIdPropiedad($id_propiedad) { $this->id_propiedad = $id_propiedad; }
+
+    public function getTitulo() { return $this->titulo; } // Nuevo getter
+    public function setTitulo($titulo) { $this->titulo = $titulo; } // Nuevo setter
 
     public function getComentario() { return $this->comentario; }
     public function setComentario($comentario) { $this->comentario = $comentario; }
