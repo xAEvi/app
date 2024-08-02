@@ -16,10 +16,13 @@ class UsuariosController {
 
             $result = $this->model->authenticate($user, $contra);
 
+            
+
             if ($result) {
                 session_start();
                 $_SESSION['user'] = $result['username'];
                 $_SESSION['rol'] = $result['rol'];
+                $_SESSION['user_id'] = $result['id'];
                 $_SESSION['mensaje'] = 'Bienvenid@ ' . $result['nombre'];
                 header('Location: index.php');
                 exit();
@@ -41,10 +44,8 @@ class UsuariosController {
 
         if ($rol == 1){
           $resultados = $this->model->selectAll();
-        } else if ($rol == 2 || $rol == 3){
-          $resultados = $this->model->selectAvailable();
         } else {
-          header('Location:index.php?c=Usuarios&f=login');
+            header('Location:index.php');
         }
 
         $titulo = "Lista de usuarios";
@@ -54,6 +55,23 @@ class UsuariosController {
     public function view_new() {
         $titulo = "Nuevo Usuario";
         require_once VUSER . 'new.php';
+    }
+
+    public function view_profile() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $id = $_SESSION['user_id'];
+        $user = $this->model->selectOne($id);
+        if ($user === false) {
+            $_SESSION['mensaje'] = "Usuario no encontrado";
+            header('Location:index.php');
+            exit();
+        } 
+
+        $titulo = "Perfil de Usuario";
+        require_once VUSER . 'perfil.php';
     }
 
     public function new() {

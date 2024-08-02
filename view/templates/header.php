@@ -15,7 +15,6 @@ if ($opcion=="cerrar") {
     require_once LOGIN . 'login.php';
     die(); 
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +29,7 @@ if ($opcion=="cerrar") {
             <?php if ($rol ==1) { ?>
                 <li><a href="index.php?c=Usuarios&f=index">Usuarios</a></li>
             <?php } ?>
-            <li><a href="">Ver Perfil</a></li>
+            <li><a href="index.php?c=Usuarios&f=view_profile&id=<?php echo $_SESSION['user_id']; ?>">Ver Perfil</a></li>
             <?php if ($rol == 1 || $rol == 2) { ?>
                 <li><a href="index.php?c=Pedidos&f=index">Pedidos</a></li>
             <?php } ?>
