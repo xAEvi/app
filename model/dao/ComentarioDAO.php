@@ -27,6 +27,7 @@ class ComentarioDAO {
             $comentario->setId($row['id']);
             $comentario->setIdUsuario($row['id_usuario']);
             $comentario->setIdPropiedad($row['id_propiedad']);
+            $comentario->setTitulo($row['titulo']); // Establecer el nuevo campo titulo
             $comentario->setComentario($row['comentario']);
             $comentario->setFecha($row['fecha']);
             $comentario->setValoracionCosto($row['valoracion_costo']);
