@@ -70,13 +70,7 @@ require_once HEADER;
             <div><span>Correo:</span> <?php echo $user['correo']; ?></div>
             <div><span>Dirección:</span> <?php echo $user['direccion']; ?></div>
 
-            <?php $sql = "SELECT p.*, u.nombre AS NombreUser, d.titulo AS Propiedad, d.descripcion , d.precio As Precio
-                FROM pedido p
-                LEFT JOIN usuario u ON p.id_usuario = u.id 
-                LEFT JOIN propiedad d ON p.id_propiedad = d.id";
-            ?>
 
-            
         </div>
         <div class="profile-social">
             <a href="#"><img src="path_to_facebook_icon" alt="Facebook"></a>
