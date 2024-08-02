@@ -42,7 +42,7 @@ class UsuariosController {
 
         $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
-        if ($rol == 1){
+        if ($rol == 1 || $rol == 2 ){
           $resultados = $this->model->selectAll();
         } else {
             header('Location:index.php');

@@ -26,7 +26,7 @@ if ($opcion=="cerrar") {
             <li><a href="index.php?c=Index&f=index">Inicio</a></li>
             <li><a href="index.php?c=Propiedades&f=index">Propiedades</a></li>
             <li><a href="index.php?p=contacto">Contacto</a></li>
-            <?php if ($rol ==1) { ?>
+            <?php if ($rol ==1 || $rol == 2) { ?>
                 <li><a href="index.php?c=Usuarios&f=index">Usuarios</a></li>
             <?php } ?>
             <li><a href="index.php?c=Usuarios&f=view_profile&id=<?php echo $_SESSION['user_id']; ?>">Ver Perfil</a></li>

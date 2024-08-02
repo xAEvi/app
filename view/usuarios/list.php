@@ -80,7 +80,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                 <th>Correo</th>
                 <th>Usuario</th>
                 <th>Direccion</th>
-                <?php if ($rol == 1){ ?>
+                <?php if ($rol == 1 || $rol == 2){ ?>
                 <th>Acciones</th>
                 <?php } ?>
             </tr>
@@ -100,7 +100,9 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                     </td>
                     <?php } ?>
                     <?php if ($rol == 2){ ?>
-                        <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>">Eliminar</a>
+                        <td>
+                            <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>">Eliminar</a>
+                        </td>
                     <?php } ?>
 
                 </tr>
