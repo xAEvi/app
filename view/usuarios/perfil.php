@@ -67,10 +67,7 @@ require_once HEADER;
             <div><span>Correo:</span> <?php echo $user['correo']; ?></div>
             <div><span>Dirección:</span> <?php echo $user['direccion']; ?></div>
 
-            <?php $sql = "SELECT p.*, u.nombre AS NombreUser, d.titulo AS Propiedad, d.descripcion , d.precio As Precio
-                FROM pedido p
-                LEFT JOIN usuario u ON p.id_usuario = u.id 
-                LEFT JOIN propiedad d ON p.id_propiedad = d.id";
+            <?php echo "XAVIER ME CAE MAL";
             ?>
 
             
