@@ -15,98 +15,121 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
             background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
-
+            font-family: Arial, sans-serif;
         }
-        .box{
 
-            width: 300px;
-            height: 30px;
-            border: 1px solid #ccc;
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .header a {
+            background-color: #f06292;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
             border-radius: 5px;
-
+            font-size: 14px;
         }
 
-        table {
-            
-            border-collapse: collapse;
-            margin: 8px 0;
-            font-size: 15px;
-            min-width: 200px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+        .profile-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
-        table thead tr {
-            background-color: #ffcccb;
-            text-align: left;
-            font-weight: bold;
+        .profile-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
         }
 
-        table th, table td {
-            padding: 10px 13px;
+        .profile-info {
+            flex-grow: 1;
         }
 
-        table tbody tr {
-            border-bottom: 1px solid #dddddd;
+        .profile-info h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
         }
 
-        table tbody tr:last-of-type {
-            border-bottom: 2px solid #ffcccb;
+        .profile-info p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #666;
         }
 
-        table tbody tr:hover {
-            background-color: #f3f3f3;
+        .profile-actions {
+            display: flex;
+            gap: 10px;
         }
 
-        table th {
-            border: none;
+        .profile-actions a {
+            color: #f06292;
+            text-decoration: none;
+            font-size: 16px;
         }
     </style>
+    <!-- Puedes incluir Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1><?php echo $titulo; ?></h1>
-    <?php if (isset($_SESSION['mensaje'])) { ?>
-        <div class="alert alert">
-            <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+    <div class="container">
+        <div class="header">
+            <h1><?php echo $titulo; ?></h1>
+            <a href="index.php?c=Usuarios&f=view_new"><i class="fas fa-user-plus"></i> Nuevo Usuario</a>
         </div>
-    <?php } ?>
-      <a href="index.php?c=Usuarios&f=view_new">Nuevo Usuario</a>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Usuario</th>
-                <th>Direccion</th>
-                <?php if ($rol == 1){ ?>
-                <th>Acciones</th>
-                <?php } ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($resultados as $user) { ?>
-                <tr>
-                    <td><?php echo $user['id']; ?></td>
-                    <td><?php echo $user['nombre']; ?></td>
-                    <td><?php echo $user['correo']; ?></td>
-                    <td><?php echo $user['username']; ?></td>
-                    <td><?php echo $user['direccion']; ?></td>
-                    <?php if ($rol == 1){ ?>
-                    <td>
-                        <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>">Eliminar</a>
-                        <a href="index.php?c=Usuarios&f=view_edit&id=<?php echo $user['id']; ?>">Editar</a>
-                    </td>
-                    <?php } ?>
-                    <?php if ($rol == 2){ ?>
-                        <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>">Eliminar</a>
-                    <?php } ?>
+        
+        <?php if (isset($_SESSION['mensaje'])) { ?>
+            <div class="alert alert">
+                <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
+            </div>
+        <?php } ?>
 
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+        <?php foreach ($resultados as $user) { ?>
+            <div class="profile-card">
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($user['imagen']); ?>" alt="Imagen de perfil">
+                <div class="profile-info">
+                    <h2><?php echo $user['nombre']; ?></h2>
+                    <p><?php echo $user['correo']; ?></p>
+                    <p><?php echo $user['username']; ?></p>
+                    <p><?php echo $user['direccion']; ?></p>
+                </div>
+                <?php if ($rol == 1 || $rol == 2){ ?>
+                    <div class="profile-actions">
+                        <?php if ($rol == 1){ ?>
+                            <a href="index.php?c=Usuarios&f=view_edit&id=<?php echo $user['id']; ?>"><i class="fas fa-edit"></i></a>
+                        <?php } ?>
+                        <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
 </body>
 </html>
 

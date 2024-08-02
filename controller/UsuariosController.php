@@ -42,7 +42,7 @@ class UsuariosController {
 
         $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
-        if ($rol == 1){
+        if ($rol == 1 || $rol == 2 ){
           $resultados = $this->model->selectAll();
         } else {
             header('Location:index.php');
@@ -83,7 +83,8 @@ class UsuariosController {
             $user->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
             $user->setCorreo(htmlentities($_POST['correo']));
             $user->setDireccion(htmlentities($_POST['direccion']));
-            $user->setRol(htmlentities($_POST['rol']));
+            $rol = isset($_POST['rol']) ? htmlentities($_POST['rol']) : 3;
+            $user->setRol($rol);
             $user->setEstado('Activo');
 
             $exito = $this->model->insert($user);
