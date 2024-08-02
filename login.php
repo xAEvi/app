@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $_SESSION['user'] = $row['username'];
         $_SESSION['rol'] = $row['rol']; 
+        $_SESSION['user_id'] = $row['id'];
         $_SESSION['mensaje'] = 'Bienvenid@' . $row['nombre'];
 
         // Redirigir al usuario a la página de inicio

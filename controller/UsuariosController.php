@@ -34,6 +34,25 @@ class UsuariosController {
         require_once VUSER . 'new.php';
     }
 
+    public function view_profile() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+    
+        $id = $_GET['id'];
+        $user = $this->model->selectOne($id);
+        if ($user === false) {
+            $_SESSION['mensaje'] = "Usuario no encontrado";
+            header('Location:index.php?c=Usuarios&f=index');
+            exit();
+        } 
+    
+        $titulo = "Perfil de Usuario";
+        require_once VUSER . 'perfil.php';
+
+        
+    }
+    
     public function new() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = new Usuario();
