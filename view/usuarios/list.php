@@ -1,4 +1,6 @@
 <?php if (!isset($_SESSION)) { session_start(); } 
+
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 ?>
 
 <?php require_once HEADER; ?>
@@ -69,7 +71,7 @@
             <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
         </div>
     <?php } ?>
-    <a href="index.php?c=Usuarios&f=view_new">Nuevo Usuario</a>
+      <a href="index.php?c=Usuarios&f=view_new">Nuevo Usuario</a>
     <table border="1">
         <thead>
             <tr>
@@ -97,6 +99,10 @@
                         <a href="index.php?c=Usuarios&f=view_edit&id=<?php echo $user['id']; ?>">Editar</a>
                     </td>
                     <?php } ?>
+                    <?php if ($rol == 2){ ?>
+                        <a href="index.php?c=Usuarios&f=delete&id=<?php echo $user['id']; ?>">Eliminar</a>
+                    <?php } ?>
+
                 </tr>
             <?php } ?>
         </tbody>
