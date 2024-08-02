@@ -44,6 +44,14 @@ require_once HEADER;
             border-radius: 5px;
             cursor: pointer;
         }
+        .profile-header a {
+            background-color: #f06292;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
         .profile-info {
             margin-top: 20px;
         }
@@ -54,12 +62,14 @@ require_once HEADER;
             font-weight: bold;
         }
     </style>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="profile-container">
         <div class="profile-header">
             <img src="data:image/jpeg;base64,<?php echo base64_encode($user['imagen']); ?>" alt="Imagen de perfil">
-            <button><a href="index.php?c=Usuarios&f=view_edit&id=<?php echo $user['id']; ?>">Editar</a></button>
+            <a href="index.php?c=Usuarios&f=view_edit&id=<?php echo $user['id']; ?>"><i class="fas fa-edit"></i> Editar</a>
         </div>
         <div class="profile-info">
             <div><span>Nombre de Usuario:</span> <?php echo $user['username']; ?></div>
@@ -72,12 +82,7 @@ require_once HEADER;
 
             
         </div>
-        <div class="profile-social">
-            <a href="#"><img src="path_to_facebook_icon" alt="Facebook"></a>
-            <a href="#"><img src="path_to_instagram_icon" alt="Instagram"></a>
-            <a href="#"><img src="path_to_whatsapp_icon" alt="WhatsApp"></a>
-            <a href="#"><img src="path_to_linkedin_icon" alt="LinkedIn"></a>
-        </div>
+        
     </div>
 </body>
 </html>
