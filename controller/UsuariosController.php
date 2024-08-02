@@ -9,6 +9,29 @@ class UsuariosController {
         $this->model = new UsuariosDAO();
     }
 
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $user = isset($_POST['user']) ? htmlentities($_POST['user']) : '';
+            $contra = isset($_POST['contra']) ? htmlentities($_POST['contra']) : '';
+
+            $result = $this->model->authenticate($user, $contra);
+
+            if ($result) {
+                session_start();
+                $_SESSION['user'] = $result['username'];
+                $_SESSION['rol'] = $result['rol'];
+                $_SESSION['mensaje'] = 'Bienvenid@ ' . $result['nombre'];
+                header('Location: index.php');
+                exit();
+            } else {
+                $error = 'Usuario o contraseña incorrectos.';
+                require_once LOGIN . 'login.php';
+            }
+        } else {
+            require_once LOGIN . 'login.php';
+        }
+    }
+
     public function index() {
         if (!isset($_SESSION)) {
             session_start();

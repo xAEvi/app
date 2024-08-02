@@ -2,7 +2,7 @@
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
 if (empty($_SESSION['user']) || empty($_SESSION['rol'])){
-    header("Location:login.php");
+    require_once LOGIN . 'login.php';
     die();
 } 
 $rol=htmlentities($_SESSION['rol']);
@@ -12,7 +12,7 @@ $opcion = !empty($_GET["op"])?htmlentities($_GET["op"]):'';
 if ($opcion=="cerrar") {
     //session_unset();//elimina las variables
     session_destroy();//elimina la sesion
-    header("Location:login.php");
+    require_once LOGIN . 'login.php';
     die(); 
 }
 

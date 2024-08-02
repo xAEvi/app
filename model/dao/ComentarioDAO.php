@@ -10,7 +10,6 @@ class ComentarioDAO {
     }
 
     public function selectByPropiedad($id_propiedad) {
-        // Consulta SQL con JOIN para obtener el nombre del usuario
         $sql = "
             SELECT c.*, u.nombre AS nombre_usuario
             FROM comentario c

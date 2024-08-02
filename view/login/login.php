@@ -1,48 +1,3 @@
-<?php
-// Iniciar sesión
-session_start();
-
-// Conectar a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "daw";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("La conexión falló: " . $conn->connect_error);
-}
-
-// Variables para almacenar los datos del formulario y mensajes de error
-$user = $contra = $error = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Limpiar los datos del formulario
-    $user = !empty($_POST["user"]) ? $conn->real_escape_string(htmlentities($_POST["user"])) : '';
-    $contra = !empty($_POST["contra"]) ? $conn->real_escape_string(htmlentities($_POST["contra"])) : '';
-
-    // Consultar la base de datos para verificar las credenciales
-    $sql = "SELECT * FROM usuario WHERE username = '$user' AND contrasena = '$contra'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // Usuario encontrado, obtener datos del usuario
-        $row = $result->fetch_assoc();
-        $_SESSION['user'] = $row['username'];
-        $_SESSION['rol'] = $row['rol']; 
-        $_SESSION['mensaje'] = 'Bienvenid@' . $row['nombre'];
-
-        // Redirigir al usuario a la página de inicio
-        header('Location: index.php');
-        die(); // Detener la ejecución del script
-    } else {
-        // Credenciales incorrectas
-        $error = 'Usuario o contraseña incorrectos.';
-    }
-}
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,22 +54,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <form id="formulario" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="formulario" method="post" action="index.php?c=Usuarios&f=login">
         <div class="contenedorPrincipal">
             <div class="seccion">
                 <div>
                     <input type="text" id="user" name="user" placeholder="Usuario" />
                 </div>
                 <br><br>
-                <span class="error"><?php echo $error; ?></span>
+                <span class="error"><?php if (isset($error)) echo $error; ?></span>
                 <div>
                     <input type="password" id="contrasenia" name="contra" placeholder="Contraseña" />
                 </div>
-                <span class="error"><?php echo $error; ?></span>
+                <span class="error"><?php if (isset($error)) echo $error; ?></span>
                 <br /><br>
                 <div class="btn-container">
                     <button class="btn" type="submit">Ingresar</button>
-                    
                 </div>
             </div>
         </div>

@@ -9,6 +9,15 @@ class UsuariosDAO {
         $this->conexion = Conexion::conectar();
     }
 
+    public function authenticate($username, $password) {
+        $query = "SELECT * FROM usuario WHERE username = :username AND contrasena = :contrasena";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':contrasena', $password);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function selectAll() { //mostrar todos 
         $query = "SELECT * FROM usuario WHERE estado = 'Activo'";
         $stmt = $this->conexion->prepare($query);
