@@ -18,7 +18,11 @@ class PedidosController {
     }
 
     public function New() {
-        $id_propiedad = $_REQUEST['id_propiedad'];
+        $id_propiedad = isset($_REQUEST['id_propiedad']) ? $_REQUEST['id_propiedad'] : null;
+        if (!$id_propiedad) {
+            echo "Error: id_propiedad no definido";
+            return;
+        }
         require_once 'view/pedidos/new.php';
     }
 
