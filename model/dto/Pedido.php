@@ -1,5 +1,5 @@
 <?php
-class Comentario {
+class Pedido {
     private $id;
     private $id_usuario;
     private $id_propiedad;
@@ -9,7 +9,6 @@ class Comentario {
     private $duracion_alquiler;
     private $estado_pedido;
     private $tipo_pago;
-    private $nombre_usuario;
 
     // Getters y setters para todos los atributos
     public function getId() { return $this->id; }
@@ -37,10 +36,7 @@ class Comentario {
     public function setEstadoPedido($estado_pedido) { $this->estado_pedido = $estado_pedido;}
 
     public function getTipoPago() { return $this->tipo_pago;}
-    public function setTipoPago($tipo_pago) { $this->tipo_pago = $tipo_pago}
-
-    public function getNombreUsuario() { return $this->nombre_usuario;}
-    public function setNombreUsuario($nombre_usuario) { $this->nombre_usuario = $nombre_usuario}
+    public function setTipoPago($tipo_pago) { $this->tipo_pago = $tipo_pago;}
 
     
 }

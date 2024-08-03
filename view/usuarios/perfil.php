@@ -1,4 +1,5 @@
 <?php
+ //Autor :NARCISA CARRILLO SANCHEZ 
 // Iniciar sesión
 if (!isset($_SESSION)) { 
     session_start(); 
@@ -12,19 +13,21 @@ require_once HEADER;
 <head>
     <meta charset="UTF-8">
     <title>Perfil Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
         }
-        .profile-container {
+        .profile-container, .orders-container {
             max-width: 600px;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         .profile-header {
             display: flex;
@@ -36,34 +39,37 @@ require_once HEADER;
             width: 100px;
             height: 100px;
         }
-        .profile-header button {
-            background-color: #ff6666;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .profile-header a {
+        .profile-header button, .profile-header a, .btn-back {
             background-color: #f06292;
             color: #fff;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
             font-size: 14px;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
         }
-        .profile-info {
-            margin-top: 20px;
+        .btn-back {
+            margin-left: 500px;
+            background-color: #ccc;
+            color: #333;
         }
-        .profile-info div {
-            margin-bottom: 10px;
+        .profile-info, .order-info {
+            margin-top: 30px;
         }
-        .profile-info div span {
+        .profile-info div, .order-info div {
+            margin-bottom: 15px;
+        }
+        .profile-info div span, .order-info div span {
             font-weight: bold;
         }
+        .orders-container p {
+            text-align: center;
+            font-style: italic;
+        }
     </style>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="profile-container">
@@ -76,43 +82,23 @@ require_once HEADER;
             <div><span>Nombre:</span> <?php echo $user['nombre']; ?></div>
             <div><span>Correo:</span> <?php echo $user['correo']; ?></div>
             <div><span>Dirección:</span> <?php echo $user['direccion']; ?></div>
-
-            <?php echo "XAVIER ME CAE MAL";
-            ?>
-        
+        </div>
     </div>
-    <div>
-        <h2></h2>
-            <?php if (!empty($pedidos)) { ?>
-                <table border="1">
-                    <tr>
-                        <th>ID</th>
-                        <th>Usuario</th>
-                        <th>Título</th> <!-- Nueva columna para el título -->
-                        <th>Duracion</th>
-                        <th>Fecha inicio</th>
-                        <th>tipo Pago</th>
-                    </tr>
-                    <?php foreach ($pedidos as $pedido) { ?>
-                        <tr>
-                            <td><?php echo $pedido->getId(); ?></td>
-                            <td><?php echo $pedido->getNombreUsuario(); ?></td>
-                            <td><?php echo $pedido->getTitulo(); ?></td> <!-- Mostrar el título del pedido -->
-                            <td><?php echo $pedido->getpedido(); ?></td>
-                            <td><?php echo $pedido->getFecha(); ?></td>
-                            <td><?php echo $pedido->getValoracionCosto(); ?></td>
-                            <td><?php echo $pedido->getValoracionUbicacion(); ?></td>
-                            <td><?php echo $pedido->getValoracionEstado(); ?></td>
-                        </tr>
-                    <?php } ?>
-                </table>
-            <?php } else { ?>
-                <p>No hay pedidos para esta propiedad.</p>
+    <div class="orders-container">
+        <h2>Lista de pedidos</h2>
+        <?php if (!empty($pedidos)) { ?>
+            <?php foreach ($pedidos as $pedido) { ?>
+                <div class="order-info">
+                    <div><span>Propiedad:</span> <?php echo $pedido->getTitulo(); ?></div>
+                    <div><span>Duración Alquiler:</span> <?php echo $pedido->getDuracionAlquiler(); ?> meses</div>
+                    <div><span>Fecha inicio:</span> <?php echo $pedido->getFechaInicio(); ?></div>
+                    <div><span>Tipo Pago:</span> <?php echo $pedido->getTipoPago(); ?></div>
+                </div>
             <?php } ?>
         <?php } else { ?>
-            <p>Propiedad no encontrada.</p>
+            <p>No hay pedidos para este usuario.</p>
         <?php } ?>
-        <a href="index.php?c=Propiedades&f=index">Volver a la lista</a>
+        <a href="index.php?c=Usuarios&f=index" class="btn-back">Volver </a>
     </div>
 </body>
 </html>
