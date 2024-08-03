@@ -48,19 +48,28 @@ class PedidosDAO {
     }
 
     public function registrar(Pedido $pedido) {
-        $stmt = $this->conexion->prepare("INSERT INTO pedido (id_usuario, id_propiedad, fecha_pedido, duracion_alquiler, estado_pedido, fecha_inicio, tipo_pago, comentario, estado) VALUES (:id_usuario, :id_propiedad, :fecha_pedido, :duracion_alquiler, :estado_pedido, :fecha_inicio, :tipo_pago, :comentario, :estado)");
-        $stmt->execute([
-            'id_usuario' => $pedido->getIdUsuario(),
-            'id_propiedad' => $pedido->getIdPropiedad(),
-            'fecha_pedido' => $pedido->getFechaPedido(),
-            'duracion_alquiler' => $pedido->getDuracionAlquiler(),
-            'estado_pedido' => $pedido->getEstadoPedido(),
-            'fecha_inicio' => $pedido->getFechaInicio(),
-            'tipo_pago' => $pedido->getTipoPago(),
-            'comentario' => $pedido->getComentario(),
-            'estado' => $pedido->getEstado()
-        ]);
+        try {
+            echo 'ID Usuario: ' . $pedido->getIdUsuario(); // Agrega esto para verificar el ID de usuario
+            $sql = "INSERT INTO pedido (id_usuario, id_propiedad, fecha_pedido, duracion_alquiler, estado_pedido, fecha_inicio, tipo_pago, comentario, estado) 
+                    VALUES (:id_usuario, :id_propiedad, :fecha_pedido, :duracion_alquiler, :estado_pedido, :fecha_inicio, :tipo_pago, :comentario, :estado)";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $pedido->getIdUsuario());
+            $stmt->bindParam(':id_propiedad', $pedido->getIdPropiedad());
+            $stmt->bindParam(':fecha_pedido', $pedido->getFechaPedido());
+            $stmt->bindParam(':duracion_alquiler', $pedido->getDuracionAlquiler());
+            $stmt->bindParam(':estado_pedido', $pedido->getEstadoPedido());
+            $stmt->bindParam(':fecha_inicio', $pedido->getFechaInicio());
+            $stmt->bindParam(':tipo_pago', $pedido->getTipoPago());
+            $stmt->bindParam(':comentario', $pedido->getComentario());
+            $stmt->bindParam(':estado', $pedido->getEstado());
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage(); // Agrega esto para ver el mensaje de error
+            return false;
+        }
     }
+    
+    
 
     public function actualizar(Pedido $pedido) {
         $stmt = $this->conexion->prepare("UPDATE pedido SET id_usuario = :id_usuario, id_propiedad = :id_propiedad, fecha_pedido = :fecha_pedido, duracion_alquiler = :duracion_alquiler, estado_pedido = :estado_pedido, fecha_inicio = :fecha_inicio, tipo_pago = :tipo_pago, comentario = :comentario, estado = :estado WHERE id = :id");

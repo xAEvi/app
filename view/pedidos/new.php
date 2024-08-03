@@ -1,4 +1,4 @@
-<?php require_once HEADER; ?>
+<?php //require_once HEADER; ?>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 <body>
     <h2>Nuevo Pedido</h2>
     <form action="index.php?c=Pedidos&f=Save" method="post">
-        <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['usuario']['id']; ?>">
+        <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user_id']; ?>">
         <input type="hidden" name="id_propiedad" value="<?php echo $_REQUEST['id_propiedad']; ?>">
 
         <label for="fecha_pedido">Fecha Pedido:</label>
