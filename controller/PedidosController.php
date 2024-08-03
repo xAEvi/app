@@ -96,5 +96,39 @@ class PedidosController {
         $this->model->actualizar($pedido);
         header('Location: index.php?c=Pedidos');
     }
+
+    public function aceptarPedido() {
+        if (!isset($_SESSION)) { session_start(); }
+        if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) {
+            $id_pedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
+            if ($id_pedido > 0) {
+                $exito = $this->model->cambiarEstadoPedido($id_pedido, 'Aceptado');
+                $_SESSION['mensaje'] = $exito ? "Pedido aceptado exitosamente." : "No se pudo aceptar el pedido.";
+            } else {
+                $_SESSION['mensaje'] = "ID de pedido inválido.";
+            }
+        } else {
+            $_SESSION['mensaje'] = "No tienes permisos para realizar esta acción.";
+        }
+        header('Location: index.php?c=Pedidos&f=index');
+    }
+    
+    public function rechazarPedido() {
+        if (!isset($_SESSION)) { session_start(); }
+        if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) {
+            $id_pedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
+            if ($id_pedido > 0) {
+                $exito = $this->model->cambiarEstadoPedido($id_pedido, 'Rechazado');
+                $_SESSION['mensaje'] = $exito ? "Pedido rechazado exitosamente." : "No se pudo rechazar el pedido.";
+            } else {
+                $_SESSION['mensaje'] = "ID de pedido inválido.";
+            }
+        } else {
+            $_SESSION['mensaje'] = "No tienes permisos para realizar esta acción.";
+        }
+        header('Location: index.php?c=Pedidos&f=index');
+    }
+    
+    
 }
 ?>

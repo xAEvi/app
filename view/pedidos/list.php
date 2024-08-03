@@ -8,7 +8,6 @@
 </head>
 <body>
     <h2>Lista de Pedidos</h2>
-    <a href="index.php?c=Pedidos&f=New">Nuevo Pedido</a>
     <table>
         <thead>
             <tr>
@@ -42,9 +41,9 @@
                     <a href="index.php?c=Pedidos&f=Edit&id=<?php echo $pedido->getId(); ?>">Editar</a>
                     <a href="index.php?c=Pedidos&f=Delete&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de eliminar este pedido?')">Eliminar</a>
                     <a href="index.php?c=Pedidos&f=View&id=<?php echo $pedido->getId(); ?>">Ver</a>
-                    <?php if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['rol'] == 1 || $_SESSION['usuario']['rol'] == 2)) { ?>
-                        <a href="index.php?c=Pedidos&f=ChangeStatus&id=<?php echo $pedido->getId(); ?>&estado=Aceptado" onclick="return confirm('¿Está seguro de aceptar este pedido?')">Aceptar</a>
-                        <a href="index.php?c=Pedidos&f=ChangeStatus&id=<?php echo $pedido->getId(); ?>&estado=Rechazado" onclick="return confirm('¿Está seguro de rechazar este pedido?')">Rechazar</a>
+                    <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) { ?>
+                        <a href="index.php?c=Pedidos&f=aceptarPedido&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de aceptar este pedido?')">Aceptar</a>
+                        <a href="index.php?c=Pedidos&f=rechazarPedido&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de rechazar este pedido?')">Rechazar</a>
                     <?php } ?>
                 </td>
             </tr>

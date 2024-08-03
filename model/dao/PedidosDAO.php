@@ -9,6 +9,19 @@ class PedidosDAO {
         $this->conexion = Conexion::conectar();
     }
 
+    public function cambiarEstadoPedido($id, $estado) {
+        try {
+            $sql = "UPDATE pedido SET estado_pedido = :estado WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':estado', $estado);
+            $stmt->bindParam(':id', $id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+    
+    
     public function actualizarEstadoAlquiler($id_propiedad, $estado_alquiler) {
         $stmt = $this->conexion->prepare("UPDATE propiedad SET estado_alquiler = :estado_alquiler WHERE id = :id");
         $stmt->execute(['estado_alquiler' => $estado_alquiler, 'id' => $id_propiedad]);
