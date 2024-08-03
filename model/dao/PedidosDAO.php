@@ -12,7 +12,7 @@ class PedidosDAO {
     public function cambiarEstadoPedido($id, $estado) {
         try {
             $sql = "UPDATE pedido SET estado_pedido = :estado WHERE id = :id";
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $this->conexion->prepare($sql);
             $stmt->bindParam(':estado', $estado);
             $stmt->bindParam(':id', $id);
             return $stmt->execute();
@@ -20,8 +20,7 @@ class PedidosDAO {
             return false;
         }
     }
-    
-    
+
     public function actualizarEstadoAlquiler($id_propiedad, $estado_alquiler) {
         $stmt = $this->conexion->prepare("UPDATE propiedad SET estado_alquiler = :estado_alquiler WHERE id = :id");
         $stmt->execute(['estado_alquiler' => $estado_alquiler, 'id' => $id_propiedad]);
@@ -77,7 +76,5 @@ class PedidosDAO {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
-
-    
 }
 ?>
