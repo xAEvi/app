@@ -87,9 +87,6 @@ class Pedido {
         return $this->estado;
     }
 
-    public function getTipoPago() { return $this->tipo_pago;}
-    public function setTipoPago($tipo_pago) { $this->tipo_pago = $tipo_pago;}
-
     public function setEstado($estado) {
         $this->estado = $estado;
     }

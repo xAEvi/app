@@ -81,6 +81,8 @@ class PedidosDAO {
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
             return false;
+        }
+    }
 
     public function selectByUsuario($id_usuario) {
         $sql = "
@@ -108,12 +110,6 @@ class PedidosDAO {
             $pedidos[] = $pedido;
         }
     }
-    
-    
-    
-    
-    
-    
 
     public function actualizar(Pedido $pedido) {
         $stmt = $this->conexion->prepare("UPDATE pedido SET id_usuario = :id_usuario, id_propiedad = :id_propiedad, fecha_pedido = :fecha_pedido, duracion_alquiler = :duracion_alquiler, estado_pedido = :estado_pedido, fecha_inicio = :fecha_inicio, tipo_pago = :tipo_pago, comentario = :comentario, estado = :estado WHERE id = :id");
