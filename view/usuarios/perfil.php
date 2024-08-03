@@ -109,9 +109,6 @@ require_once HEADER;
             <?php } else { ?>
                 <p>No hay pedidos para esta propiedad.</p>
             <?php } ?>
-        <?php } else { ?>
-            <p>Propiedad no encontrada.</p>
-        <?php } ?>
         <a href="index.php?c=Propiedades&f=index">Volver a la lista</a>
     </div>
 </body>
