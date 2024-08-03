@@ -1,5 +1,4 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
-
 <?php require_once HEADER; ?>
 
 <!DOCTYPE html>
@@ -60,6 +59,10 @@
                 <td><?php echo $propiedad['estado_alquiler']; ?></td>
             </tr>
         </table>
+
+        <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['rol'] == 3) { ?>
+            <a href="index.php?c=Pedidos&f=New&id_propiedad=<?php echo $propiedad['id']; ?>">Hacer Pedido</a>
+        <?php } ?>
 
         <h2>Comentarios</h2>
         <?php if (!empty($comentarios)) { ?>

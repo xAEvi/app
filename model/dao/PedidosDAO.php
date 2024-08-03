@@ -9,34 +9,62 @@ class PedidosDAO {
         $this->conexion = Conexion::conectar();
     }
 
-    public function selectByPropiedad($id_propiedad) {
-        $sql = "
-            SELECT c.*, p.titulo AS titulo
-            FROM pedido c
-            JOIN propiedad p ON c.propiedad = p.id
-            WHERE c.id_usuario = :id_usuario AND c.estado = 'Activo'
-        ";
-        $stmt = $this->conexion->prepare($sql);
-        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $stmt->execute();
-        $pedidos = [];
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $pedido = new pedido();
-            $pedido->setId($row['id']);
-            $pedido->setIdUsuario($row['id_usuario']);
-            $pedido->setIdPropiedad($row['id_propiedad']);
-            $pedido->setTitulo($row['titulo']); // Establecer el nuevo campo titulo
-            $pedido->setFechaPedido($row['fecha_pedido']);
-            $pedido->setFechaInicio($row['fecha_inicio']);
-            $pedido->setDuracionAlquiler($row['duracion_alquiler']);
-            $pedido->setEstadoPedido($row['estado_pedido']);
-            $pedido->setTipoPago($row['tipo_pago']);
-            $pedido->setNombreUsuario($row['nombre_usuario']); // Establecer el nombre del usuario
-            $pedidos[] = $pedido;
-        }
-
-        return $pedidos;
+    public function actualizarEstadoAlquiler($id_propiedad, $estado_alquiler) {
+        $stmt = $this->conexion->prepare("UPDATE propiedad SET estado_alquiler = :estado_alquiler WHERE id = :id");
+        $stmt->execute(['estado_alquiler' => $estado_alquiler, 'id' => $id_propiedad]);
     }
+
+    public function listar() {
+        $stmt = $this->conexion->prepare("SELECT * FROM pedido");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Pedido');
+    }
+
+    public function obtener($id) {
+        $stmt = $this->conexion->prepare("SELECT * FROM pedido WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Pedido');
+        return $stmt->fetch();
+    }
+
+    public function registrar(Pedido $pedido) {
+        $stmt = $this->conexion->prepare("INSERT INTO pedido (id_usuario, id_propiedad, fecha_pedido, duracion_alquiler, estado_pedido, fecha_inicio, tipo_pago, comentario, estado) VALUES (:id_usuario, :id_propiedad, :fecha_pedido, :duracion_alquiler, :estado_pedido, :fecha_inicio, :tipo_pago, :comentario, :estado)");
+        $stmt->execute([
+            'id_usuario' => $pedido->getIdUsuario(),
+            'id_propiedad' => $pedido->getIdPropiedad(),
+            'fecha_pedido' => $pedido->getFechaPedido(),
+            'duracion_alquiler' => $pedido->getDuracionAlquiler(),
+            'estado_pedido' => $pedido->getEstadoPedido(),
+            'fecha_inicio' => $pedido->getFechaInicio(),
+            'tipo_pago' => $pedido->getTipoPago(),
+            'comentario' => $pedido->getComentario(),
+            'estado' => $pedido->getEstado()
+        ]);
+    }
+
+    public function actualizar(Pedido $pedido) {
+        $stmt = $this->conexion->prepare("UPDATE pedido SET id_usuario = :id_usuario, id_propiedad = :id_propiedad, fecha_pedido = :fecha_pedido, duracion_alquiler = :duracion_alquiler, estado_pedido = :estado_pedido, fecha_inicio = :fecha_inicio, tipo_pago = :tipo_pago, comentario = :comentario, estado = :estado WHERE id = :id");
+        $stmt->execute([
+            'id' => $pedido->getId(),
+            'id_usuario' => $pedido->getIdUsuario(),
+            'id_propiedad' => $pedido->getIdPropiedad(),
+            'fecha_pedido' => $pedido->getFechaPedido(),
+            'duracion_alquiler' => $pedido->getDuracionAlquiler(),
+            'estado_pedido' => $pedido->getEstadoPedido(),
+            'fecha_inicio' => $pedido->getFechaInicio(),
+            'tipo_pago' => $pedido->getTipoPago(),
+            'comentario' => $pedido->getComentario(),
+            'estado' => $pedido->getEstado()
+        ]);
+    }
+
+    public function eliminar($id) {
+        $stmt = $this->conexion->prepare("DELETE FROM pedido WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    
 }
 ?>
