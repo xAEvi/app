@@ -1,3 +1,5 @@
+<!-- Autor: Xavier Molina Cisneros -->
+
 <?php require_once HEADER; ?>
 
 <!DOCTYPE html>

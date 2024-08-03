@@ -1,4 +1,7 @@
 <?php
+
+// Autor: Xavier Molina Cisneros
+
 require_once 'model/dao/PropiedadesDAO.php';
 require_once 'model/dao/ComentarioDAO.php';
 require_once 'model/dto/Comentario.php';

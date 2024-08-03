@@ -1,3 +1,5 @@
+<!-- Autor: Xavier Molina Cisneros -->
+
 <?php if (!isset($_SESSION)) { session_start(); } 
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
 ?>

@@ -1,4 +1,7 @@
 <?php
+
+// Autor: Xavier Molina Cisneros
+
 require_once 'config/conexion.php';
 require_once 'model/dto/Propiedad.php';
 

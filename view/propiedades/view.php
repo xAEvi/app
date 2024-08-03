@@ -1,3 +1,5 @@
+<!-- Autor: Xavier Molina Cisneros -->
+
 <?php if (!isset($_SESSION)) { session_start(); } ?>
 
 <?php require_once HEADER; ?>

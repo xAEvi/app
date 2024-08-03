@@ -1,4 +1,7 @@
 <?php
+
+// Autor: Xavier Molina Cisneros
+
 class Propiedad {
     private $id;
     private $titulo;
