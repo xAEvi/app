@@ -1,3 +1,5 @@
+<?php if (!isset($_SESSION)) { session_start(); } ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +42,7 @@
                     <a href="index.php?c=Pedidos&f=Edit&id=<?php echo $pedido->getId(); ?>">Editar</a>
                     <a href="index.php?c=Pedidos&f=Delete&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de eliminar este pedido?')">Eliminar</a>
                     <a href="index.php?c=Pedidos&f=View&id=<?php echo $pedido->getId(); ?>">Ver</a>
-                    <?php if ($_SESSION['usuario']['rol'] == 1 || $_SESSION['usuario']['rol'] == 2) { ?>
+                    <?php if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['rol'] == 1 || $_SESSION['usuario']['rol'] == 2)) { ?>
                         <a href="index.php?c=Pedidos&f=ChangeStatus&id=<?php echo $pedido->getId(); ?>&estado=Aceptado" onclick="return confirm('¿Está seguro de aceptar este pedido?')">Aceptar</a>
                         <a href="index.php?c=Pedidos&f=ChangeStatus&id=<?php echo $pedido->getId(); ?>&estado=Rechazado" onclick="return confirm('¿Está seguro de rechazar este pedido?')">Rechazar</a>
                     <?php } ?>
