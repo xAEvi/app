@@ -143,6 +143,35 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
             border-radius: 5px;
             margin-bottom: 20px;
         }
+
+                .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-form input[type="text"] {
+            width: 300px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .search-form button {
+            background-color: #f06292;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #e91e63;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -158,6 +187,13 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
                 <?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']); ?>
             </div>
         <?php } ?>
+
+        <div class="search-form">
+            <form action="index.php?c=Propiedades&f=search" method="POST">
+                <input type="text" name="b" id="busqueda" placeholder="Buscar..."/>
+                <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+            </form>
+        </div>
 
         <table>
             <thead>

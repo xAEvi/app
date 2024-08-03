@@ -18,11 +18,8 @@ class PropiedadesController {
 
         $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
-        if ($rol == 1){
-          $resultados = $this->model->selectAll();
-        } else if ($rol == 2 || $rol == 3){
-          $resultados = $this->model->selectAvailable();
-        }
+        $resultados = $this->model->selectAll();
+
 
         $titulo = "Lista de propiedades";
         require_once VPROP . 'list.php';
@@ -31,6 +28,15 @@ class PropiedadesController {
     public function view_new() {
         $titulo = "Nueva propiedad";
         require_once VPROP . 'new.php';
+    }
+
+    public function search() {
+        $parametro = isset($_POST['b']) ? htmlentities($_POST['b']) : '';
+        
+        $resultados = $this->model->selectAll($parametro);
+        
+        $titulo = "Lista de propiedades";
+        require_once VPROP . 'list.php';
     }
 
     public function actualizarEstadoAlquiler($id_propiedad, $estado_alquiler) {

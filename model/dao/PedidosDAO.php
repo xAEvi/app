@@ -101,12 +101,12 @@ class PedidosDAO {
             $pedido->setId($row['id']);
             $pedido->setIdUsuario($row['id_usuario']);
             $pedido->setIdPropiedad($row['id_propiedad']);
-            $pedido->setTitulo($row['titulo']); // Establecer el nuevo campo titulo
+            $pedido->setTitulo($row['titulo']); 
             $pedido->setFechaPedido($row['fecha_pedido']);
             $pedido->setFechaInicio($row['fecha_inicio']);
             $pedido->setDuracionAlquiler($row['duracion_alquiler']);
             $pedido->setEstadoPedido($row['estado_pedido']);
-            $pedido->setTipoPago($row['tipo_pago']); // Establecer el nombre del usuario
+            $pedido->setTipoPago($row['tipo_pago']);
             $pedidos[] = $pedido;
         }
     }

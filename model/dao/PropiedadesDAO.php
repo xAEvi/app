@@ -23,9 +23,25 @@ class PropiedadesDAO {
         }
     }
 
-    public function selectAll() {
-        $query = "SELECT * FROM propiedad WHERE estado_alquiler = 'Disponible' AND estado = 'Activo'";
+    public function selectAll($parametro = '') {
+        $query = "
+            SELECT p.* 
+            FROM propiedad p
+            WHERE p.estado = 'Activo' 
+            AND p.estado_alquiler = 'Disponible'
+        ";
+
+        if (!empty($parametro)) {
+            $query .= " AND (p.titulo LIKE :parametro OR p.descripcion LIKE :parametro)";
+        }
+
         $stmt = $this->conexion->prepare($query);
+
+        if (!empty($parametro)) {
+            $likeParam = '%' . $parametro . '%';
+            $stmt->bindParam(':parametro', $likeParam, PDO::PARAM_STR);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
