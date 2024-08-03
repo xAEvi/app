@@ -9,6 +9,18 @@ class PropiedadesController {
     
     public function __construct() {
         $this->model = new PropiedadesDAO();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+    }
+
+    private function checkRole() {
+        if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
+            error_log("Acceso denegado. Rol de sesión: " . (isset($_SESSION['rol']) ? $_SESSION['rol'] : 'no definido'));
+
+            header('Location: index.php?op=cerrar&num=12');
+            exit();
+        }
     }
 
     public function index() {
@@ -93,13 +105,7 @@ class PropiedadesController {
     }
 
     public function delete() {
-
-        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
-
-        if ($rol != 1){
-            header('Location:index.php?c=Propiedades&f=index');
-        }
-
+        $this->checkRole(); 
         $prop = new Propiedad();
         $prop->setId(htmlentities($_REQUEST['id']));
 
@@ -117,13 +123,7 @@ class PropiedadesController {
     }
 
     public function view_edit() {
-
-        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
-
-        if ($rol != 1){
-            header('Location:index.php?c=Propiedades&f=index');
-        }
-
+        $this->checkRole(); 
         $id = $_GET['id'];
         $prop = $this->model->selectOne($id);
         $titulo = "Editar propiedad";
@@ -132,6 +132,7 @@ class PropiedadesController {
     
 
     public function edit() {
+        $this->checkRole(); 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $prop = new Propiedad();
             $prop->setId(htmlentities($_POST['id']));
