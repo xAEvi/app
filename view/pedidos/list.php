@@ -1,3 +1,5 @@
+<?php require_once HEADER; ?>
+
 <?php if (!isset($_SESSION)) { session_start(); } ?>
 
 <!DOCTYPE html>
@@ -51,9 +53,42 @@
         </tbody>
     </table>
     <?php } ?>
+    
     <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 3)) { 
-        //entra para listar mis pedidos en usuario con su id_usuario en la tabla pedidos?> 
-
+        //entra para listar mis pedidos en usuario con su id_usuario en la tabla pedidos?>
+    <h2>Mis Pedidos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Propiedad</th>
+                <th>Fecha Pedido</th>
+                <th>Duración Alquiler</th>
+                <th>Estado Pedido</th>
+                <th>Fecha Inicio</th>
+                <th>Tipo Pago</th>
+                <th>Comentario</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($misPedidos as $pedido): ?>
+            <tr>
+                <td><?php echo $pedido->getId(); ?></td>
+                <td><?php echo $pedido->getIdPropiedad(); ?></td>
+                <td><?php echo $pedido->getFechaPedido(); ?></td>
+                <td><?php echo $pedido->getDuracionAlquiler(); ?></td>
+                <td><?php echo $pedido->getEstadoPedido(); ?></td>
+                <td><?php echo $pedido->getFechaInicio(); ?></td>
+                <td><?php echo $pedido->getTipoPago(); ?></td>
+                <td><?php echo $pedido->getComentario(); ?></td>
+                <td><?php echo $pedido->getEstado(); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
     <?php } ?>
-    </body>
+</body>
 </html>
+
+<?php require_once FOOTER; ?>

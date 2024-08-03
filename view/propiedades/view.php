@@ -1,5 +1,5 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
-<?php //require_once HEADER; ?>
+<?php require_once HEADER; ?>
 
 <!DOCTYPE html>
 <html lang="es">

@@ -1,3 +1,5 @@
+<?php require_once HEADER; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,3 +49,5 @@
     </form>
 </body>
 </html>
+
+<?php require_once FOOTER; ?>

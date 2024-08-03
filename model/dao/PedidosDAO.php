@@ -32,6 +32,13 @@ class PedidosDAO {
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Pedido');
     }
 
+    public function listarPorUsuario($idUsuario) {
+        $stmt = $this->conexion->prepare("SELECT * FROM pedido WHERE id_usuario = :id_usuario");
+        $stmt->bindParam(':id_usuario', $idUsuario);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Pedido');
+    }
+
     public function obtener($id) {
         $stmt = $this->conexion->prepare("SELECT * FROM pedido WHERE id = :id");
         $stmt->bindParam(':id', $id);

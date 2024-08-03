@@ -1,3 +1,5 @@
+<?php require_once HEADER; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,3 +53,5 @@
     <a href="index.php?c=Pedidos">Regresar</a>
 </body>
 </html>
+
+<?php require_once FOOTER; ?>

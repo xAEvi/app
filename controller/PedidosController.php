@@ -13,8 +13,16 @@ class PedidosController {
     }
 
     public function Index() {
-        $pedidos = $this->model->listar();
-        require_once 'view/pedidos/list.php';
+        if (!isset($_SESSION)) { session_start(); }
+        
+        if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) {
+            $pedidos = $this->model->listar();
+            require_once 'view/pedidos/list.php';
+        } elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
+            $idUsuario = $_SESSION['user_id'];
+            $misPedidos = $this->model->listarPorUsuario($idUsuario);
+            require_once 'view/pedidos/list.php';
+        }
     }
 
     public function New() {
@@ -128,7 +136,5 @@ class PedidosController {
         }
         header('Location: index.php?c=Pedidos&f=index');
     }
-    
-    
 }
 ?>
