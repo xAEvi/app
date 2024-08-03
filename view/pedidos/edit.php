@@ -1,4 +1,4 @@
-<?php require_once HEADER; ?>
+<?php //require_once HEADER; ?>
 
 <!DOCTYPE html>
 <html>
@@ -46,6 +46,8 @@
         </select><br>
 
         <input type="submit" value="Actualizar">
+        <a href="index.php?c=Pedidos">Regresar</a>
+
     </form>
 </body>
 </html>

@@ -12,6 +12,8 @@
     <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) { 
         //entra para listar los pedidos para los administradores y moderadores?>
     <h2>Lista de Pedidos</h2>
+    <a href="index.php">Regresar</a>
+
     <table>
         <thead>
             <tr>
@@ -52,11 +54,14 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    
     <?php } ?>
     
     <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 3)) { 
         //entra para listar mis pedidos en usuario con su id_usuario en la tabla pedidos?>
     <h2>Mis Pedidos</h2>
+    <a href="index.php">Regresar</a>
+
     <table>
         <thead>
             <tr>

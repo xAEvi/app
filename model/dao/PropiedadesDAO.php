@@ -9,6 +9,20 @@ class PropiedadesDAO {
         $this->conexion = Conexion::conectar();
     }
 
+    public function actualizarEstadoAlquiler($id_propiedad, $estado_alquiler) {
+        try {
+            $sql = "UPDATE propiedad SET estado_alquiler = :estado_alquiler WHERE id = :id";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':estado_alquiler', $estado_alquiler);
+            $stmt->bindParam(':id', $id_propiedad);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+            return false;
+        }
+    }
+
     public function selectAll() {
         $query = "SELECT * FROM propiedad WHERE estado_alquiler = 'Disponible' AND estado = 'Activo'";
         $stmt = $this->conexion->prepare($query);
