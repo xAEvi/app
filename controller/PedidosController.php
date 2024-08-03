@@ -59,6 +59,9 @@ class PedidosController {
         echo 'ID Usuario: ' . $pedido->getIdUsuario() . ', ID Propiedad: ' . $pedido->getIdPropiedad() . ', Fecha Pedido: ' . $pedido->getFechaPedido();
         
         $this->model->registrar($pedido);
+
+        header('Location: index.php?c=Pedidos');
+
     }
     
     
