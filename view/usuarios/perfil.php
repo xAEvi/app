@@ -79,10 +79,40 @@ require_once HEADER;
 
             <?php echo "XAVIER ME CAE MAL";
             ?>
-
-            
-        </div>
         
+    </div>
+    <div>
+        <h2></h2>
+            <?php if (!empty($pedidos)) { ?>
+                <table border="1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Título</th> <!-- Nueva columna para el título -->
+                        <th>Duracion</th>
+                        <th>Fecha inicio</th>
+                        <th>tipo Pago</th>
+                    </tr>
+                    <?php foreach ($pedidos as $pedido) { ?>
+                        <tr>
+                            <td><?php echo $pedido->getId(); ?></td>
+                            <td><?php echo $pedido->getNombreUsuario(); ?></td>
+                            <td><?php echo $pedido->getTitulo(); ?></td> <!-- Mostrar el título del pedido -->
+                            <td><?php echo $pedido->getpedido(); ?></td>
+                            <td><?php echo $pedido->getFecha(); ?></td>
+                            <td><?php echo $pedido->getValoracionCosto(); ?></td>
+                            <td><?php echo $pedido->getValoracionUbicacion(); ?></td>
+                            <td><?php echo $pedido->getValoracionEstado(); ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            <?php } else { ?>
+                <p>No hay pedidos para esta propiedad.</p>
+            <?php } ?>
+        <?php } else { ?>
+            <p>Propiedad no encontrada.</p>
+        <?php } ?>
+        <a href="index.php?c=Propiedades&f=index">Volver a la lista</a>
     </div>
 </body>
 </html>
