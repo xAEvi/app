@@ -1,4 +1,4 @@
-<?php require_once HEADER; ?>
+<?php //require_once HEADER; ?>
 
 <?php if (!isset($_SESSION)) { session_start(); } ?>
 
