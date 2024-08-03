@@ -17,9 +17,6 @@ if (session_status() === PHP_SESSION_NONE) {
         <input type="hidden" name="id_usuario" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>">
         <input type="hidden" name="id_propiedad" value="<?php echo isset($_REQUEST['id_propiedad']) ? $_REQUEST['id_propiedad'] : ''; ?>">
 
-        <label for="fecha_pedido">Fecha Pedido:</label>
-        <input type="date" name="fecha_pedido" required><br>
-
         <label for="duracion_alquiler">Duración Alquiler:</label>
         <input type="number" name="duracion_alquiler" required><br>
 
@@ -27,7 +24,14 @@ if (session_status() === PHP_SESSION_NONE) {
         <input type="date" name="fecha_inicio" required><br>
 
         <label for="tipo_pago">Tipo Pago:</label>
-        <input type="text" name="tipo_pago" required><br>
+        <select name="tipo_pago" required>
+            <option value="semanal">Semanal</option>
+            <option value="mensual">Mensual</option>
+            <option value="bimensual">Bimensual</option>
+            <option value="trimestral">Trimestral</option>
+            <option value="semestral">Semestral</option>
+            <option value="anual">Anual</option>
+        </select><br>
 
         <label for="comentario">Comentario:</label>
         <textarea name="comentario" required></textarea><br>
@@ -36,6 +40,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </form>
 </body>
 </html>
+
 
 
 <?php require_once FOOTER; ?>

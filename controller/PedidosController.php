@@ -47,7 +47,7 @@ class PedidosController {
         $pedido = new Pedido();
         $pedido->setIdUsuario($_SESSION['user_id']);
         $pedido->setIdPropiedad($_POST['id_propiedad']);
-        $pedido->setFechaPedido($_POST['fecha_pedido']);
+        $pedido->setFechaPedido(date('Y-m-d')); // Fecha actual
         $pedido->setDuracionAlquiler($_POST['duracion_alquiler']);
         $pedido->setEstadoPedido('Pendiente'); // Estado inicial es Pendiente
         $pedido->setFechaInicio($_POST['fecha_inicio']);
@@ -59,12 +59,10 @@ class PedidosController {
         echo 'ID Usuario: ' . $pedido->getIdUsuario() . ', ID Propiedad: ' . $pedido->getIdPropiedad() . ', Fecha Pedido: ' . $pedido->getFechaPedido();
         
         $this->model->registrar($pedido);
-
+    
         header('Location: index.php?c=Pedidos');
-
     }
-    
-    
+
 
     public function Edit() {
         $id = $_REQUEST['id'];
