@@ -108,6 +108,15 @@ class UsuariosController {
         }
     }
 
+        public function search() {
+        $parametro = isset($_POST['b']) ? htmlentities($_POST['b']) : '';
+        
+        $resultados = $this->model->selectAll($parametro);
+        
+        $titulo = "Lista de Usuarios";
+        require_once VUSER . 'list.php';
+    }
+
     public function delete() {
         $user = new Usuario();
         $user->setId(htmlentities($_REQUEST['id']));

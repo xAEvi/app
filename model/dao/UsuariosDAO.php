@@ -19,9 +19,20 @@ class UsuariosDAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function selectAll() { //mostrar todos 
+    public function selectAll($parametro = '') {
         $query = "SELECT * FROM usuario WHERE estado = 'Activo'";
+
+        if (!empty($parametro)) {
+            $query .= " AND (nombre LIKE :parametro OR correo LIKE :parametro OR username LIKE :parametro)";
+        }
+
         $stmt = $this->conexion->prepare($query);
+
+        if (!empty($parametro)) {
+            $likeParam = '%' . $parametro . '%';
+            $stmt->bindParam(':parametro', $likeParam, PDO::PARAM_STR);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
