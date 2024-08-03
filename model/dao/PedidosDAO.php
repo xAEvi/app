@@ -81,6 +81,31 @@ class PedidosDAO {
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
             return false;
+
+    public function selectByUsuario($id_usuario) {
+        $sql = "
+            SELECT c.*, p.titulo AS titulo
+            FROM pedido c
+            JOIN propiedad p ON c.id_propiedad = p.id
+            WHERE c.id_usuario = :id_usuario AND c.estado = 'Activo'
+        ";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $pedidos = [];
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $pedido = new pedido();
+            $pedido->setId($row['id']);
+            $pedido->setIdUsuario($row['id_usuario']);
+            $pedido->setIdPropiedad($row['id_propiedad']);
+            $pedido->setTitulo($row['titulo']); // Establecer el nuevo campo titulo
+            $pedido->setFechaPedido($row['fecha_pedido']);
+            $pedido->setFechaInicio($row['fecha_inicio']);
+            $pedido->setDuracionAlquiler($row['duracion_alquiler']);
+            $pedido->setEstadoPedido($row['estado_pedido']);
+            $pedido->setTipoPago($row['tipo_pago']); // Establecer el nombre del usuario
+            $pedidos[] = $pedido;
         }
     }
     
