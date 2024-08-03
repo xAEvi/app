@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
 <body>
+    <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) { 
+        //entra para listar los pedidos para los administradores y moderadores?>
     <h2>Lista de Pedidos</h2>
     <table>
         <thead>
@@ -41,14 +43,17 @@
                     <a href="index.php?c=Pedidos&f=Edit&id=<?php echo $pedido->getId(); ?>">Editar</a>
                     <a href="index.php?c=Pedidos&f=Delete&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de eliminar este pedido?')">Eliminar</a>
                     <a href="index.php?c=Pedidos&f=View&id=<?php echo $pedido->getId(); ?>">Ver</a>
-                    <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)) { ?>
-                        <a href="index.php?c=Pedidos&f=aceptarPedido&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de aceptar este pedido?')">Aceptar</a>
-                        <a href="index.php?c=Pedidos&f=rechazarPedido&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de rechazar este pedido?')">Rechazar</a>
-                    <?php } ?>
+                    <a href="index.php?c=Pedidos&f=aceptarPedido&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de aceptar este pedido?')">Aceptar</a>
+                    <a href="index.php?c=Pedidos&f=rechazarPedido&id=<?php echo $pedido->getId(); ?>" onclick="return confirm('¿Está seguro de rechazar este pedido?')">Rechazar</a>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-</body>
+    <?php } ?>
+    <?php if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 3)) { 
+        //entra para listar mis pedidos en usuario con su id_usuario en la tabla pedidos?> 
+
+    <?php } ?>
+    </body>
 </html>
