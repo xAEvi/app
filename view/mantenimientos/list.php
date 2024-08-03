@@ -150,7 +150,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
     <div class="container">
         <div class="header">
             <h1><?php echo $titulo; ?></h1>
-            <a href="index.php?c=Propiedades&f=view_new"><i class="fas fa-plus"></i> Nueva Propiedad</a>
+            <a href="index.php?c=Mantenimientos&f=view_new"><i class="fas fa-plus"></i> Nuevo Mantenimiento</a>
         </div>
         
         <?php if (isset($_SESSION['mensaje'])) { ?>
@@ -162,44 +162,34 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
         <table>
             <thead>
                 <tr>
-                    <th>Tipo</th>
+                    <th>Propiedad en mantenimiento</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
                     <th>Descripción</th>
-                    <th>Imagen</th>
-                    <th>Dirección</th>
-                    <th>Precio</th>
-                    <th>Habitaciones</th>
-                    <th>Baños</th>
-                    <th>Superficie</th>
-                    <th>Estado Alquiler</th>
+                    <th>Nombre Mantenimiento</th>
+                    <th>Encargado</th>
+                    <th>Estado</th>
+                    <th>Costo</th>
                     <?php if ($rol == 1){ ?>
                     <th>Acciones</th>
                     <?php } ?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($resultados as $prop) { ?>
+                <?php foreach ($resultados as $mant) { ?>
                     <tr>
-                        <td><?php echo $prop['tipo_propiedad']; ?></td>
-                        <td><?php echo $prop['descripcion']; ?></td>
-                        <td>
-                            <a href="index.php?c=Propiedades&f=view&id=<?php echo $prop['id']; ?>">
-                                <?php if ($prop['imagen']) { ?>
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($prop['imagen']); ?>" alt="Imagen" style="width: 100px; height: auto;">
-                                <?php } else { ?>
-                                    No Disponible
-                                <?php } ?>
-                            </a>
-                        </td>
-                        <td><?php echo $prop['direccion']; ?></td>
-                        <td><?php echo $prop['precio']; ?></td>
-                        <td><?php echo $prop['num_habitaciones']; ?></td>
-                        <td><?php echo $prop['num_banos']; ?></td>
-                        <td><?php echo $prop['superficie']; ?></td>
-                        <td><?php echo $prop['estado_alquiler']; ?></td>
+                        <td><?php echo $mant['propiedad_titulo']; ?></td>
+                        <td><?php echo $mant['fecha_inicio']; ?></td>
+                        <td><?php echo $mant['fecha_fin']; ?></td>
+                        <td><?php echo $mant['descripcion']; ?></td>
+                        <td><?php echo $mant['nombre_mantenimiento']; ?></td>
+                        <td><?php echo $mant['encargado']; ?></td>
+                        <td><?php echo $mant['estado']; ?></td>
+                        <td><?php echo $mant['costo']; ?></td>
                         <?php if ($rol == 1){ ?>
                         <td>
-                            <a href="index.php?c=Propiedades&f=delete&id=<?php echo $prop['id']; ?>"><i class="fas fa-trash-alt"></i></a>
-                            <a href="index.php?c=Propiedades&f=view_edit&id=<?php echo $prop['id']; ?>"><i class="fas fa-edit"></i></a>
+                            <a href="index.php?c=Mantenimientos&f=delete&id=<?php echo $mant['id']; ?>"><i class="fas fa-trash-alt"></i></a>
+                            <a href="index.php?c=Mantenimientos&f=view_edit&id=<?php echo $mant['id']; ?>"><i class="fas fa-edit"></i></a>
                         </td>
                         <?php } ?>
                     </tr>
