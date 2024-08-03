@@ -45,7 +45,7 @@ class MantenimientoDAO {
         return $stmt->execute();
     }
 
-    public function update(Mantenimiento $mantenimiento) {
+    public function update($mantenimiento) {
         $query = "UPDATE mantenimiento SET 
                   id_propiedad = :id_propiedad, 
                   fecha_inicio = :fecha_inicio, 
@@ -57,24 +57,27 @@ class MantenimientoDAO {
                   costo = :costo 
                   WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindValue(':id', $mantenimiento->getId(), PDO::PARAM_INT);
-        $stmt->bindValue(':id_propiedad', $mantenimiento->getIdPropiedad(), PDO::PARAM_INT);
-        $stmt->bindValue(':fecha_inicio', $mantenimiento->getFechaInicio());
-        $stmt->bindValue(':fecha_fin', $mantenimiento->getFechaFin());
-        $stmt->bindValue(':descripcion', $mantenimiento->getDescripcion());
-        $stmt->bindValue(':nombre_mantenimiento', $mantenimiento->getNombreMantenimiento());
-        $stmt->bindValue(':encargado', $mantenimiento->getEncargado());
-        $stmt->bindValue(':estado', $mantenimiento->getEstado());
-        $stmt->bindValue(':costo', $mantenimiento->getCosto());
+        $stmt->bindValue(':id', $mantenimiento['id'], PDO::PARAM_INT);
+        $stmt->bindValue(':id_propiedad', $mantenimiento['id_propiedad'], PDO::PARAM_INT);
+        $stmt->bindValue(':fecha_inicio', $mantenimiento['fecha_inicio']);
+        $stmt->bindValue(':fecha_fin', $mantenimiento['fecha_fin']);
+        $stmt->bindValue(':descripcion', $mantenimiento['descripcion']);
+        $stmt->bindValue(':nombre_mantenimiento', $mantenimiento['nombre_mantenimiento']);
+        $stmt->bindValue(':encargado', $mantenimiento['encargado']);
+        $stmt->bindValue(':estado', $mantenimiento['estado']);
+        $stmt->bindValue(':costo', $mantenimiento['costo']);
+        return $stmt->execute();
+    }
+    
+
+    public function delete($man) {
+        $query = "UPDATE mantenimiento SET estado = 'Inactivo' WHERE id = :id";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bindValue(':id', $man->getId(), PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    public function delete($id) {
-        $query = "DELETE FROM mantenimiento WHERE id = :id";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
+    
 }
 ?>
 

@@ -36,6 +36,23 @@ class MantenimientosController {
         require_once VMANTE . 'new.php';
     }
 
+    public function view_edit() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $mantenimiento = $this->model->selectOne($id);
+
+        if ($mantenimiento) {
+            $propiedadesDAO = new PropiedadesDAO();
+            $propiedades = $propiedadesDAO->selectAll();
+            $titulo = "Editar mantenimiento";
+            require_once VMANTE . 'edit.php';
+        } else {
+            echo "Mantenimiento no encontrado.";
+        }
+    }
 
 
     
@@ -64,36 +81,59 @@ class MantenimientosController {
             $mantenimiento->setEstado($_POST['estado']);
             $mantenimiento->setCosto($_POST['costo']); 
             $this->model->insert($mantenimiento);
-            header('Location: index.php');
+            header('Location:index.php?c=mantenimientos&f=index');
         } else {
             include 'views/mantenimiento/create.php';
         }
     }
     
 
-    public function edit($id) {
+    public function edit() {
+        $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mantenimiento = $this->model->selectOne($id);
-            $mantenimiento->setIdPropiedad($_POST['id_propiedad']);
-            $mantenimiento->setFechaInicio($_POST['fecha_inicio']);
-            $mantenimiento->setFechaFin($_POST['fecha_fin']);
-            $mantenimiento->setDescripcion($_POST['descripcion']);
-            $mantenimiento->setNombreMantenimiento($_POST['nombre_mantenimiento']);
-            $mantenimiento->setEncargado($_POST['encargado']);
-            $mantenimiento->setEstado($_POST['estado']);
-            $mantenimiento->setCosto($_POST['costo']); // Nuevo campo costo
-            $this->model->update($mantenimiento);
-            header('Location: index.php');
+    
+            if ($mantenimiento) {
+                $mantenimiento['id_propiedad'] = $_POST['id_propiedad'];
+                $mantenimiento['fecha_inicio'] = $_POST['fecha_inicio'];
+                $mantenimiento['fecha_fin'] = $_POST['fecha_fin'];
+                $mantenimiento['descripcion'] = $_POST['descripcion'];
+                $mantenimiento['nombre_mantenimiento'] = $_POST['nombre_mantenimiento'];
+                $mantenimiento['encargado'] = $_POST['encargado'];
+                $mantenimiento['estado'] = $_POST['estado'];
+                $mantenimiento['costo'] = $_POST['costo'];
+                $this->model->update($mantenimiento);
+                header('Location:index.php?c=mantenimientos&f=index');
+            } else {
+                // Manejar el caso en el que no se encuentra el mantenimiento
+                echo "No se encontró el mantenimiento con ID $id";
+            }
         } else {
             $mantenimiento = $this->model->selectOne($id);
-            include 'views/mantenimiento/edit.php';
+            $propiedadesDAO = new PropiedadesDAO();
+            $propiedades = $propiedadesDAO->selectAll();
+            $titulo = "Editar mantenimiento";
+            require_once VMANTE . 'edit.php';
         }
     }
     
 
-    public function delete($id) {
-        $this->model->delete($id);
-        header('Location: index.php');
+    public function delete() {
+        $man = new Mantenimiento();
+        $man->setId(htmlentities($_REQUEST['id']));
+        $exito = $this->model->delete($man);
+        $msj = 'Mantenimiento eliminado exitosamente';
+        if (!$exito) {
+            $msj = "No se pudo eliminar el mantenimiento";
+        }
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        $_SESSION['mensaje'] = $msj;
+        header('Location:index.php?c=Mantenimientos&f=index');
     }
+
+  
 }
 ?>
