@@ -1,4 +1,7 @@
-<?php require_once HEADER; ?>
+<?php 
+    //Autor :NARCISA CARRILLO SANCHEZ 
+    require_once HEADER;
+?>
 
 <!DOCTYPE html>
 <html lang="es">

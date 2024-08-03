@@ -1,4 +1,5 @@
 <?php
+ //Autor :NARCISA CARRILLO SANCHEZ 
 class Usuario {
     private $id;
     private $nombre;

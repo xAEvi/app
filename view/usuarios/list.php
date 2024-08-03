@@ -1,4 +1,6 @@
-<?php if (!isset($_SESSION)) { session_start(); } 
+<?
+ //Autor :NARCISA CARRILLO SANCHEZ 
+ if (!isset($_SESSION)) { session_start(); } 
 
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 ?>
@@ -59,6 +61,12 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
             margin-bottom: 15px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
+        #profile-info {
+            cursor: pointer;
+        }
+        #profile-info:hover {
+            background-color: #f0f0f0; /* Cambia el color de fondo al pasar el mouse */
+        }
 
         .profile-card img {
             width: 50px;
@@ -111,9 +119,9 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
         <?php } ?>
 
         <?php foreach ($resultados as $user) { ?>
-            <div class="profile-card">
+            <div  id="profile-info" class="profile-card" onclick="window.location.href='index.php?c=Usuarios&f=view_profile&id=<?php echo $user['id']; ?>'" >
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($user['imagen']); ?>" alt="Imagen de perfil">
-                <div class="profile-info">
+                <div  class="profile-info">
                     <h2><?php echo $user['nombre']; ?></h2>
                     <p><?php echo $user['correo']; ?></p>
                     <p><?php echo $user['username']; ?></p>
@@ -130,6 +138,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
             </div>
         <?php } ?>
     </div>
+    
 </body>
 </html>
 

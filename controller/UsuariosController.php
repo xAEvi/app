@@ -1,5 +1,8 @@
 <?php
+ //Autor :NARCISA CARRILLO SANCHEZ 
 require_once 'model/dao/UsuariosDAO.php';
+require_once 'model/dao/PedidosDAO.php';
+require_once 'model/dto/Pedido.php';
 require_once 'model/dto/Usuario.php';
 
 class UsuariosController {
@@ -63,13 +66,15 @@ class UsuariosController {
             session_start();
         }
 
-        $id = $_SESSION['user_id'];
+        $id = isset($_GET['id']) ? $_GET['id'] : $_SESSION['user_id'];
         $user = $this->model->selectOne($id);
         if ($user === false) {
             $_SESSION['mensaje'] = "Usuario no encontrado";
             header('Location:index.php');
             exit();
-        } 
+        }
+        $PedidosDAO = new PedidosDAO();
+        $pedidos = $PedidosDAO->selectByUsuario($id);
 
         $titulo = "Perfil de Usuario";
         require_once VUSER . 'perfil.php';

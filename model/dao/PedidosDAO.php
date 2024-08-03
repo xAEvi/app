@@ -9,11 +9,11 @@ class PedidosDAO {
         $this->conexion = Conexion::conectar();
     }
 
-    public function selectByPropiedad($id_propiedad) {
+    public function selectByUsuario($id_usuario) {
         $sql = "
             SELECT c.*, p.titulo AS titulo
             FROM pedido c
-            JOIN propiedad p ON c.propiedad = p.id
+            JOIN propiedad p ON c.id_propiedad = p.id
             WHERE c.id_usuario = :id_usuario AND c.estado = 'Activo'
         ";
         $stmt = $this->conexion->prepare($sql);
@@ -31,8 +31,7 @@ class PedidosDAO {
             $pedido->setFechaInicio($row['fecha_inicio']);
             $pedido->setDuracionAlquiler($row['duracion_alquiler']);
             $pedido->setEstadoPedido($row['estado_pedido']);
-            $pedido->setTipoPago($row['tipo_pago']);
-            $pedido->setNombreUsuario($row['nombre_usuario']); // Establecer el nombre del usuario
+            $pedido->setTipoPago($row['tipo_pago']); // Establecer el nombre del usuario
             $pedidos[] = $pedido;
         }
 
