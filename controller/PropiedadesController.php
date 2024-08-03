@@ -16,10 +16,7 @@ class PropiedadesController {
             session_start();
         }
 
-        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
-
         $resultados = $this->model->selectAll();
-
 
         $titulo = "Lista de propiedades";
         require_once VPROP . 'list.php';
@@ -96,6 +93,13 @@ class PropiedadesController {
     }
 
     public function delete() {
+
+        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
+
+        if ($rol != 1){
+            header('Location:index.php?c=Propiedades&f=index');
+        }
+
         $prop = new Propiedad();
         $prop->setId(htmlentities($_REQUEST['id']));
 
@@ -113,6 +117,13 @@ class PropiedadesController {
     }
 
     public function view_edit() {
+
+        $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
+
+        if ($rol != 1){
+            header('Location:index.php?c=Propiedades&f=index');
+        }
+
         $id = $_GET['id'];
         $prop = $this->model->selectOne($id);
         $titulo = "Editar propiedad";
