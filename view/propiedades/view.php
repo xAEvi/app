@@ -1,6 +1,5 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
-
-<?php require_once HEADER; ?>
+<?php //require_once HEADER; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -61,13 +60,18 @@
             </tr>
         </table>
 
+        <?php if (isset($_SESSION['user']) && $_SESSION['rol'] == 3) { ?>
+            <a href="index.php?c=Pedidos&f=New&id_propiedad=<?php echo $propiedad['id']; ?>">Hacer Pedido</a>
+        <?php } ?>
+
+
         <h2>Comentarios</h2>
         <?php if (!empty($comentarios)) { ?>
             <table border="1">
                 <tr>
                     <th>ID</th>
                     <th>Usuario</th>
-                    <th>Título</th> <!-- Nueva columna para el título -->
+                    <th>Título</th>
                     <th>Comentario</th>
                     <th>Fecha</th>
                     <th>Valoración Costo</th>
@@ -78,7 +82,7 @@
                     <tr>
                         <td><?php echo $comentario->getId(); ?></td>
                         <td><?php echo $comentario->getNombreUsuario(); ?></td>
-                        <td><?php echo $comentario->getTitulo(); ?></td> <!-- Mostrar el título del comentario -->
+                        <td><?php echo $comentario->getTitulo(); ?></td>
                         <td><?php echo $comentario->getComentario(); ?></td>
                         <td><?php echo $comentario->getFecha(); ?></td>
                         <td><?php echo $comentario->getValoracionCosto(); ?></td>

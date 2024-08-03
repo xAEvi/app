@@ -50,7 +50,6 @@ if ($opcion=="cerrar") {
             color: white;
         }
 
-
         .sidebar .logo {
             text-align: center;
             margin-bottom: 20px;
@@ -88,6 +87,9 @@ if ($opcion=="cerrar") {
         <a href="index.php?c=Usuarios&f=view_profile&id=<?php echo $_SESSION['user_id']; ?>">Ver Perfil</a>
         <?php if ($rol == 1 || $rol == 2) { ?>
             <a href="index.php?c=Pedidos&f=index">Pedidos</a>
+        <?php } ?>
+        <?php if ($rol == 3) { ?>
+            <a href="index.php?c=Pedidos&f=index">Mis Pedidos</a>
         <?php } ?>
         <?php if ($rol == 1) { ?>
             <a href="index.php?c=Mantenimientos&f=index">Mantenimientos</a>
