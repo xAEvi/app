@@ -96,9 +96,9 @@ require_once HEADER;
                 </div>
             <?php } ?>
         <?php } else { ?>
-            <p>Propiedad no encontrada.</p>
+            <p>No hay pedidos para este usuario.</p>
         <?php } ?>
-        <a href="index.php?c=Propiedades&f=index">Volver a la lista</a>
+        <a  href="index.php?c=Usuarios&f=index" class="btn-back">Volver </a>
     </div>
 </body>
 </html>
