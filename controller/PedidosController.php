@@ -35,8 +35,17 @@ class PedidosController {
     }
 
     public function Save() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        
+        if (!isset($_SESSION['user_id'])) {
+            echo "Error: Usuario no autenticado.";
+            return;
+        }
+        
         $pedido = new Pedido();
-        $pedido->setIdUsuario($_POST['id_usuario']);
+        $pedido->setIdUsuario($_SESSION['user_id']);
         $pedido->setIdPropiedad($_POST['id_propiedad']);
         $pedido->setFechaPedido($_POST['fecha_pedido']);
         $pedido->setDuracionAlquiler($_POST['duracion_alquiler']);
@@ -45,10 +54,14 @@ class PedidosController {
         $pedido->setTipoPago($_POST['tipo_pago']);
         $pedido->setComentario($_POST['comentario']);
         $pedido->setEstado('Activo');
-
+        
+        // Debugging line to check the data
+        echo 'ID Usuario: ' . $pedido->getIdUsuario() . ', ID Propiedad: ' . $pedido->getIdPropiedad() . ', Fecha Pedido: ' . $pedido->getFechaPedido();
+        
         $this->model->registrar($pedido);
-        header('Location: index.php?c=Pedidos');
     }
+    
+    
 
     public function Edit() {
         $id = $_REQUEST['id'];

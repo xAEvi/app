@@ -1,5 +1,10 @@
 <?php //require_once HEADER; ?>
 
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +14,8 @@
 <body>
     <h2>Nuevo Pedido</h2>
     <form action="index.php?c=Pedidos&f=Save" method="post">
-        <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user_id']; ?>">
-        <input type="hidden" name="id_propiedad" value="<?php echo $_REQUEST['id_propiedad']; ?>">
+        <input type="hidden" name="id_usuario" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>">
+        <input type="hidden" name="id_propiedad" value="<?php echo isset($_REQUEST['id_propiedad']) ? $_REQUEST['id_propiedad'] : ''; ?>">
 
         <label for="fecha_pedido">Fecha Pedido:</label>
         <input type="date" name="fecha_pedido" required><br>
@@ -31,5 +36,6 @@
     </form>
 </body>
 </html>
+
 
 <?php require_once FOOTER; ?>

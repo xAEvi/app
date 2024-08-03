@@ -49,25 +49,44 @@ class PedidosDAO {
 
     public function registrar(Pedido $pedido) {
         try {
-            echo 'ID Usuario: ' . $pedido->getIdUsuario(); // Agrega esto para verificar el ID de usuario
             $sql = "INSERT INTO pedido (id_usuario, id_propiedad, fecha_pedido, duracion_alquiler, estado_pedido, fecha_inicio, tipo_pago, comentario, estado) 
                     VALUES (:id_usuario, :id_propiedad, :fecha_pedido, :duracion_alquiler, :estado_pedido, :fecha_inicio, :tipo_pago, :comentario, :estado)";
             $stmt = $this->conexion->prepare($sql);
-            $stmt->bindParam(':id_usuario', $pedido->getIdUsuario());
-            $stmt->bindParam(':id_propiedad', $pedido->getIdPropiedad());
-            $stmt->bindParam(':fecha_pedido', $pedido->getFechaPedido());
-            $stmt->bindParam(':duracion_alquiler', $pedido->getDuracionAlquiler());
-            $stmt->bindParam(':estado_pedido', $pedido->getEstadoPedido());
-            $stmt->bindParam(':fecha_inicio', $pedido->getFechaInicio());
-            $stmt->bindParam(':tipo_pago', $pedido->getTipoPago());
-            $stmt->bindParam(':comentario', $pedido->getComentario());
-            $stmt->bindParam(':estado', $pedido->getEstado());
-            return $stmt->execute();
+            
+            $idUsuario = $pedido->getIdUsuario();
+            $idPropiedad = $pedido->getIdPropiedad();
+            $fechaPedido = $pedido->getFechaPedido();
+            $duracionAlquiler = $pedido->getDuracionAlquiler();
+            $estadoPedido = $pedido->getEstadoPedido();
+            $fechaInicio = $pedido->getFechaInicio();
+            $tipoPago = $pedido->getTipoPago();
+            $comentario = $pedido->getComentario();
+            $estado = $pedido->getEstado();
+            
+            $stmt->bindParam(':id_usuario', $idUsuario);
+            $stmt->bindParam(':id_propiedad', $idPropiedad);
+            $stmt->bindParam(':fecha_pedido', $fechaPedido);
+            $stmt->bindParam(':duracion_alquiler', $duracionAlquiler);
+            $stmt->bindParam(':estado_pedido', $estadoPedido);
+            $stmt->bindParam(':fecha_inicio', $fechaInicio);
+            $stmt->bindParam(':tipo_pago', $tipoPago);
+            $stmt->bindParam(':comentario', $comentario);
+            $stmt->bindParam(':estado', $estado);
+    
+            if ($stmt->execute()) {
+                echo "Pedido registrado correctamente.";
+            } else {
+                echo "Error al registrar el pedido.";
+            }
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage(); // Agrega esto para ver el mensaje de error
+            echo 'Error: ' . $e->getMessage();
             return false;
         }
     }
+    
+    
+    
+    
     
     
 
