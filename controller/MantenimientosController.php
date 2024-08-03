@@ -23,6 +23,19 @@ class MantenimientosController {
         }
     }
 
+    public function search() {
+        // Leer el parámetro de búsqueda
+        $parametro = isset($_POST['b']) ? htmlentities($_POST['b']) : '';
+        
+        // Comunica con el modelo para obtener los resultados
+        $resultados = $this->model->selectAll($parametro);
+        
+        // Configura el título y carga la vista
+        $titulo = "Buscar Mantenimientos";
+        require_once VMANTE . 'list.php';
+    }
+    
+
     public function index() {
         $this->checkRole(); 
 

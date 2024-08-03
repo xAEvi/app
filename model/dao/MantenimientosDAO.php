@@ -9,15 +9,24 @@ class MantenimientoDAO {
         $this->conexion = Conexion::conectar();
     }
 
-    public function selectAll() {
+    public function selectAll($parametro = '') {
         $query = "
             SELECT m.*, p.titulo AS propiedad_titulo 
             FROM mantenimiento m
             JOIN propiedad p ON m.id_propiedad = p.id
-            WHERE m.estado='Activo'
+            WHERE m.estado='Activo' AND (
+                p.titulo LIKE :parametro OR 
+                m.descripcion LIKE :parametro OR 
+                m.nombre_mantenimiento LIKE :parametro OR 
+                m.encargado LIKE :parametro
+            )
         ";
+        
         $stmt = $this->conexion->prepare($query);
+        $likeParam = '%' . $parametro . '%';
+        $stmt->bindParam(':parametro', $likeParam, PDO::PARAM_STR);
         $stmt->execute();
+        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     

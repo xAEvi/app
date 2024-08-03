@@ -48,11 +48,33 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
             font-size: 14px;
         }
 
-        .box {
+        .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-form input[type="text"] {
             width: 300px;
             height: 30px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            padding: 5px;
+        }
+
+        .search-form button {
+            background-color: #f06292;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #e91e63;
         }
 
         table {
@@ -91,51 +113,6 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
             border: none;
         }
 
-        .profile-card {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-card img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-
-        .profile-info {
-            flex-grow: 1;
-        }
-
-        .profile-info h2 {
-            margin: 0;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .profile-info p {
-            margin: 5px 0 0;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .profile-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .profile-actions a {
-            color: #f06292;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
         .alert {
             padding: 15px;
             background-color: #ffcccb;
@@ -151,6 +128,14 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
         <div class="header">
             <h1><?php echo $titulo; ?></h1>
             <a href="index.php?c=Mantenimientos&f=view_new"><i class="fas fa-plus"></i> Nuevo Mantenimiento</a>
+        </div>
+
+        <!-- Formulario de búsqueda -->
+        <div class="search-form">
+            <form action="index.php?c=Mantenimientos&f=search" method="POST">
+                <input type="text" name="b" id="busqueda" placeholder="Buscar..."/>
+                <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+            </form>
         </div>
         
         <?php if (isset($_SESSION['mensaje'])) { ?>
@@ -170,7 +155,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
                     <th>Encargado</th>
                     <th>Estado</th>
                     <th>Costo</th>
-                    <?php if ($rol == 1){ ?>
+                    <?php if ($rol == 1) { ?>
                     <th>Acciones</th>
                     <?php } ?>
                 </tr>
@@ -186,7 +171,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
                         <td><?php echo $mant['encargado']; ?></td>
                         <td><?php echo $mant['estado']; ?></td>
                         <td><?php echo $mant['costo']; ?></td>
-                        <?php if ($rol == 1){ ?>
+                        <?php if ($rol == 1) { ?>
                         <td>
                             <a href="index.php?c=Mantenimientos&f=delete&id=<?php echo $mant['id']; ?>"><i class="fas fa-trash-alt"></i></a>
                             <a href="index.php?c=Mantenimientos&f=view_edit&id=<?php echo $mant['id']; ?>"><i class="fas fa-edit"></i></a>
