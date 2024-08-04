@@ -154,7 +154,13 @@ class UsuariosController {
             $user->setNombre(htmlentities($_POST['nombre']));
             $user->setContrasena(htmlentities($_POST['contrasena']));
             $user->setUsername(htmlentities($_POST['username']));
-            $user->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
+            
+            if ($_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
+                $user->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
+            } else {
+                $user->setImagen(null); // Indicar que no hay una nueva imagen
+            }
+            
             $user->setCorreo(htmlentities($_POST['correo']));
             $user->setDireccion(htmlentities($_POST['direccion']));
             $user->setRol(htmlentities($_POST['rol']));

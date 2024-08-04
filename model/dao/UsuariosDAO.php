@@ -60,19 +60,32 @@ class UsuariosDAO {
         return $stmt->execute();
     }
 
-    public function update(usuario $user) {
-        $query = "UPDATE usuario SET nombre = :nombre, contrasena = :contrasena, username = :username, imagen = :imagen, direccion = :direccion, correo = :correo, rol = :rol WHERE id = :id";
+    public function update(Usuario $user) {
+        $query = "UPDATE usuario SET nombre = :nombre, contrasena = :contrasena, username = :username, direccion = :direccion, correo = :correo, rol = :rol, estado = :estado";
+        
+        if ($user->getImagen() !== null) {
+            $query .= ", imagen = :imagen";
+        }
+
+        $query .= " WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
+
         $stmt->bindValue(':nombre', $user->getNombre());
         $stmt->bindValue(':contrasena', $user->getContrasena());
         $stmt->bindValue(':username', $user->getUsername());
-        $stmt->bindValue(':imagen', $user->getImagen(), PDO::PARAM_LOB);
         $stmt->bindValue(':direccion', $user->getDireccion());
         $stmt->bindValue(':correo', $user->getCorreo());
         $stmt->bindValue(':rol', $user->getRol());
+        $stmt->bindValue(':estado', $user->getEstado());
         $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
+
+        if ($user->getImagen() !== null) {
+            $stmt->bindValue(':imagen', $user->getImagen(), PDO::PARAM_LOB);
+        }
+
         return $stmt->execute();
     }
+
 
     public function delete(usuario $user) {
         $query = "UPDATE usuario SET estado = 'Inactivo' WHERE id = :id";
