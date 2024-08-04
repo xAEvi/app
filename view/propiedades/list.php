@@ -181,7 +181,9 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : 3;
     <div class="container">
         <div class="header">
             <h1><?php echo $titulo; ?></h1>
+            <?php if ($rol == 1){ ?>
             <a href="index.php?c=Propiedades&f=view_new"><i class="fas fa-plus"></i> Nueva Propiedad</a>
+            <?php } ?>
         </div>
         
         <?php if (isset($_SESSION['mensaje'])) { ?>
