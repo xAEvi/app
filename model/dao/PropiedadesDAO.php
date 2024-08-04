@@ -88,12 +88,18 @@ class PropiedadesDAO {
     }
 
     public function update(Propiedad $prop) {
-        $query = "UPDATE propiedad SET titulo = :titulo, tipo_propiedad = :tipo_propiedad, descripcion = :descripcion, imagen = :imagen, direccion = :direccion, precio = :precio, num_habitaciones = :num_habitaciones, num_banos = :num_banos, superficie = :superficie, estado_alquiler = :estado_alquiler WHERE id = :id";
+        $query = "UPDATE propiedad SET titulo = :titulo, tipo_propiedad = :tipo_propiedad, descripcion = :descripcion, direccion = :direccion, precio = :precio, num_habitaciones = :num_habitaciones, num_banos = :num_banos, superficie = :superficie, estado_alquiler = :estado_alquiler";
+        
+        if ($prop->getImagen() !== null) {
+            $query .= ", imagen = :imagen";
+        }
+
+        $query .= " WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
+
         $stmt->bindValue(':titulo', $prop->getTitulo());
         $stmt->bindValue(':tipo_propiedad', $prop->getTipoPropiedad());
         $stmt->bindValue(':descripcion', $prop->getDescripcion());
-        $stmt->bindValue(':imagen', $prop->getImagen(), PDO::PARAM_LOB);
         $stmt->bindValue(':direccion', $prop->getDireccion());
         $stmt->bindValue(':precio', $prop->getPrecio());
         $stmt->bindValue(':num_habitaciones', $prop->getNumHabitaciones());
@@ -101,8 +107,14 @@ class PropiedadesDAO {
         $stmt->bindValue(':superficie', $prop->getSuperficie());
         $stmt->bindValue(':estado_alquiler', $prop->getEstadoAlquiler());
         $stmt->bindValue(':id', $prop->getId(), PDO::PARAM_INT);
+
+        if ($prop->getImagen() !== null) {
+            $stmt->bindValue(':imagen', $prop->getImagen(), PDO::PARAM_LOB);
+        }
+
         return $stmt->execute();
     }
+
 
     public function delete(Propiedad $prop) {
         $query = "UPDATE propiedad SET estado = 'Inactivo' WHERE id = :id";

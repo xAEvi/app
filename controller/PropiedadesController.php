@@ -78,6 +78,7 @@ class PropiedadesController {
 
 
     public function new() {
+        $this->checkRole(); 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $prop = new Propiedad();
             $prop->setTitulo(htmlentities($_POST['titulo']));
@@ -142,7 +143,13 @@ class PropiedadesController {
             $prop->setTitulo(htmlentities($_POST['titulo']));
             $prop->setTipoPropiedad(htmlentities($_POST['tipo_propiedad']));
             $prop->setDescripcion(htmlentities($_POST['descripcion']));
-            $prop->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
+            
+            if ($_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
+                $prop->setImagen(file_get_contents($_FILES['imagen']['tmp_name']));
+            } else {
+                $prop->setImagen(null); // Indicar que no hay una nueva imagen
+            }
+
             $prop->setDireccion(htmlentities($_POST['direccion']));
             $prop->setPrecio(htmlentities($_POST['precio']));
             $prop->setNumHabitaciones(htmlentities($_POST['num_habitaciones']));
@@ -163,5 +170,6 @@ class PropiedadesController {
             header('Location:index.php?c=Propiedades&f=index');
         }
     }
+
 }
 ?>
