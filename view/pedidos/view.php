@@ -1,4 +1,6 @@
-<?php //require_once HEADER; ?>
+<!-- Autor: WALTER ALEJANDRO DUCHI RIVERA -->
+
+<?php require_once HEADER; ?>
 
 <!DOCTYPE html>
 <html>

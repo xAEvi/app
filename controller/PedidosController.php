@@ -1,7 +1,8 @@
 <?php
+ //AUTOR: WALTER ALEJANDRO DUCHI RIVERA
 require_once 'model/dao/PedidosDAO.php';
 require_once 'model/dto/Pedido.php';
-require_once 'model/dao/PropiedadesDAO.php'; // Asegúrate de tener este DAO para actualizar propiedades
+require_once 'model/dao/PropiedadesDAO.php';
 
 class PedidosController {
     private $model;

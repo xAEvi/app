@@ -1,3 +1,5 @@
+<!-- Autor: WALTER ALEJANDRO DUCHI RIVERA -->
+
 <?php if (!isset($_SESSION)) { session_start(); } ?>
 
 <?php require_once HEADER; ?>
