@@ -34,7 +34,12 @@ class PropiedadesController {
         $resultados = $this->model->selectAll();
 
         $titulo = "Lista de propiedades";
-        require_once VPROP . 'list.php';
+
+        if (isset($_SESSION['rol']) && ($_SESSION['rol'] == 1)) {
+            require_once VPROP . 'list.php';
+        } elseif (isset($_SESSION['rol']) && $_SESSION['rol'] == 3 || $_SESSION['rol'] == 2) {
+            require_once VPROP . 'list_user.php';
+        }
     }
 
     public function view_new() {
