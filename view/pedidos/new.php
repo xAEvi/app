@@ -1,3 +1,5 @@
+<!-- Autor: WALTER ALEJANDRO DUCHI RIVERA -->
+
 <?php require_once HEADER; ?>
 
 <!DOCTYPE html>

@@ -1,4 +1,5 @@
 <?php
+ //AUTOR: WALTER ALEJANDRO DUCHI RIVERA
 require_once 'config/conexion.php';
 require_once 'model/dto/Pedido.php';
 

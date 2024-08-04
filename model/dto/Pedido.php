@@ -1,4 +1,6 @@
 <?php
+ //AUTOR: WALTER ALEJANDRO DUCHI RIVERA
+
 class Pedido {
     private $id;
     private $titulo;
