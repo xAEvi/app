@@ -1,4 +1,6 @@
 <?php
+//autor: Vélez Pulido Christopher Jeremy
+
 class Mantenimiento {
     private $id;
     private $id_propiedad;
@@ -76,8 +78,6 @@ class Mantenimiento {
     public function setEstado($estado) {
         $this->estado = $estado;
     }
-
-    // También asegúrate de tener un método para obtener el estado si lo necesitas
     public function getEstado() {
         return $this->estado;
     }

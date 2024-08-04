@@ -1,4 +1,5 @@
 <?php
+//autor: Vélez Pulido Christopher Jeremy
 require_once 'model/dao/MantenimientosDAO.php';
 require_once 'model/dto/Mantenimiento.php';
 require_once 'model/dao/PropiedadesDAO.php';
@@ -24,6 +25,7 @@ class MantenimientosController {
     }
 
     public function search() {
+        $this->checkRole(); 
         // Leer el parámetro de búsqueda
         $parametro = isset($_POST['b']) ? htmlentities($_POST['b']) : '';
         
@@ -92,21 +94,27 @@ class MantenimientosController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $fecha_inicio = $_POST['fecha_inicio'];
             $fecha_fin = $_POST['fecha_fin'];
+            $costo = $_POST['costo'];
 
        
 
             if (strtotime($fecha_inicio) >= strtotime($fecha_fin)) {
                 $msj = "La fecha de inicio debe ser anterior a la fecha de fin.";
-            } else {
+            } 
+            elseif (!is_numeric($costo) || $costo < 0) {
+                $msj = "El costo no puede ser un número negativo.";
+            }
+            else {
                 $mantenimiento = new Mantenimiento();
-                $mantenimiento->setIdPropiedad($_POST['id_propiedad']);
-                $mantenimiento->setFechaInicio($fecha_inicio);
-                $mantenimiento->setFechaFin($fecha_fin);
-                $mantenimiento->setDescripcion($_POST['descripcion']);
-                $mantenimiento->setNombreMantenimiento($_POST['nombre_mantenimiento']);
-                $mantenimiento->setEncargado($_POST['encargado']);
-                $mantenimiento->setEstado($_POST['estado']);
-                $mantenimiento->setCosto($_POST['costo']); 
+                
+                $mantenimiento->setIdPropiedad(htmlentities($_POST['id_propiedad']));
+                $mantenimiento->setFechaInicio(htmlentities($fecha_inicio));
+                $mantenimiento->setFechaFin(htmlentities($fecha_fin));
+                $mantenimiento->setDescripcion(htmlentities($_POST['descripcion']));
+                $mantenimiento->setNombreMantenimiento(htmlentities($_POST['nombre_mantenimiento']));
+                $mantenimiento->setEncargado(htmlentities($_POST['encargado']));
+                $mantenimiento->setEstado(htmlentities($_POST['estado']));
+                $mantenimiento->setCosto(htmlentities($costo)); 
                 
                 if ($this->model->insert($mantenimiento)) {
                     $msj = 'Mantenimiento creado exitosamente';
@@ -128,31 +136,32 @@ class MantenimientosController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $fecha_inicio = $_POST['fecha_inicio'];
             $fecha_fin = $_POST['fecha_fin'];
-
+            $costo = $_POST['costo'];
 
             if (strtotime($fecha_inicio) >= strtotime($fecha_fin)) {
                 $msj = "La fecha de inicio debe ser anterior a la fecha de fin.";
-            } else {
-                $mantenimiento = $this->model->selectOne($id);
-
-                if ($mantenimiento) {
-                    $mantenimiento['id_propiedad'] = $_POST['id_propiedad'];
-                    $mantenimiento['fecha_inicio'] = $fecha_inicio;
-                    $mantenimiento['fecha_fin'] = $fecha_fin;
-                    $mantenimiento['descripcion'] = $_POST['descripcion'];
-                    $mantenimiento['nombre_mantenimiento'] = $_POST['nombre_mantenimiento'];
-                    $mantenimiento['encargado'] = $_POST['encargado'];
-                    $mantenimiento['estado'] = $_POST['estado'];
-                    $mantenimiento['costo'] = $_POST['costo'];
+            } 
+            elseif (!is_numeric($costo) || $costo < 0) {
+                $msj = "El costo no puede ser un número negativo.";
+            }
+            else {
+                $mantenimiento = new Mantenimiento();
+                $mantenimiento->setId($id);
+                    $mantenimiento->setIdPropiedad(htmlentities($_POST['id_propiedad']));
+                    $mantenimiento->setFechaInicio($fecha_inicio);
+                    $mantenimiento->setFechaFin($fecha_fin);
+                    $mantenimiento->setDescripcion(htmlentities($_POST['descripcion']));
+                    $mantenimiento->setNombreMantenimiento(htmlentities($_POST['nombre_mantenimiento']));
+                    $mantenimiento->setEncargado(htmlentities($_POST['encargado']));
+                    $mantenimiento->setEstado(htmlentities($_POST['estado']));
+                    $mantenimiento->setCosto($costo);
                     
                     if ($this->model->update($mantenimiento)) {
                         $msj = 'Mantenimiento actualizado exitosamente';
                     } else {
                         $msj = 'No se pudo actualizar el mantenimiento.';
                     }
-                } else {
-                    $msj = "No se encontró el mantenimiento con ID $id";
-                }
+                 
             }
 
             // Guardar el mensaje en la sesión y redirigir
