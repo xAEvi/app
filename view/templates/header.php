@@ -22,7 +22,7 @@ if ($opcion=="cerrar") {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sidebar Navigation</title>
+    <title>Alquiler de Propiedades</title>
     <style>
         body {
             margin: 0;
@@ -30,13 +30,11 @@ if ($opcion=="cerrar") {
         }
 
         .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
             background-color: white;
-            padding-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            place-items: center;
+            margin-bottom: 10px;
         }
 
         .sidebar a {
@@ -53,32 +51,18 @@ if ($opcion=="cerrar") {
         }
 
         .sidebar .logo {
-            text-align: center;
-            margin-bottom: 20px;
         }
 
         .sidebar .logo img {
             width: 50px;
         }
 
-        .sidebar .user-info {
-            margin-top: auto;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .sidebar .user-info img {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-        }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <div class="logo">
             <img src="https://graphicsfamily.com/wp-content/uploads/edd/2020/04/house-apartment-logo-blue-png-transparent.png" alt="Logo">
-            <h2>Alquiler de propiedades</h2>
         </div>
         <a href="index.php?c=Index&f=index" class="active">Inicio</a>
         <a href="index.php?c=Propiedades&f=index">Propiedades</a>
@@ -97,10 +81,6 @@ if ($opcion=="cerrar") {
             <a href="index.php?c=Mantenimientos&f=index">Mantenimientos</a>
         <?php } ?>
         <a href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?op=cerrar&num=12">Salir</a>
-        <div class="user-info">
-            <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64,<?php echo $_SESSION['image']; ?>" alt="Imagen de perfil">
-            <p><?php echo $_SESSION['user']; ?></p>
-        </div>
     </div>
 </body>
 </html>

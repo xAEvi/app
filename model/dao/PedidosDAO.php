@@ -109,6 +109,8 @@ class PedidosDAO {
             $pedido->setTipoPago($row['tipo_pago']);
             $pedidos[] = $pedido;
         }
+
+        return $pedidos;
     }
 
     public function actualizar(Pedido $pedido) {

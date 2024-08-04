@@ -1,6 +1,7 @@
 <?php
 class Pedido {
     private $id;
+    private $titulo;
     private $id_usuario;
     private $id_propiedad;
     private $fecha_pedido;
@@ -10,10 +11,9 @@ class Pedido {
     private $tipo_pago;
     private $comentario;
     private $estado;
-    private $titulo;
 
     public function getTitulo(){
-        return $this->$titulo;
+        return $this->titulo;
     }
 
     public function setTitulo($titulo){
