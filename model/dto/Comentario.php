@@ -1,4 +1,5 @@
 <?php
+//autor: Quinto Veloz Jhon Henry
 class Comentario {
     private $id;
     private $id_usuario;
